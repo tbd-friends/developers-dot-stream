@@ -1,2 +1,2 @@
 # developers-dot-stream
-A reimaging of a dormant idea. Trying to support developers who stream. 
+A reimagining of a dormant idea. Trying to support developers who stream. 
