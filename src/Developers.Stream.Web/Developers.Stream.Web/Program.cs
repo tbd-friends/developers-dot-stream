@@ -1,4 +1,3 @@
-using Developers.Stream.Web.Client.Pages;
 using Developers.Stream.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
