@@ -7,7 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
         <ProjectReference Include="..\..\Developers.Stream.Components\Developers.Stream.Components.csproj" />
+        <ProjectReference Include="..\..\Developers.Stream.Infrastructure\Developers.Stream.Infrastructure.csproj" />
         <ProjectReference Include="..\..\Developers.Stream.ServiceDefaults\Developers.Stream.ServiceDefaults.csproj" />
         <ProjectReference Include="..\Developers.Stream.Web.Client\Developers.Stream.Web.Client.csproj"/>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0"/>

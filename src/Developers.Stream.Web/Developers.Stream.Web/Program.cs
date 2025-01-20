@@ -1,3 +1,4 @@
+using Developers.Stream.Infrastructure.Contexts;
 using Developers.Stream.Web.Components;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,6 +9,8 @@ builder.AddServiceDefaults();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.AddNpgsqlDbContext<ApplicationDbContext>(connectionName: "developers.stream");
 
 var app = builder.Build();
 
