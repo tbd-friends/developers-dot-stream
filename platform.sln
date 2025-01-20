@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Components", "src\Developers.Stream.Components\Developers.Stream.Components.csproj", "{99E622EC-FEA8-4F0D-BC62-D19F97F611B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{28378430-67B8-4453-B5FD-41AB96FC5F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28378430-67B8-4453-B5FD-41AB96FC5F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28378430-67B8-4453-B5FD-41AB96FC5F44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E622EC-FEA8-4F0D-BC62-D19F97F611B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E622EC-FEA8-4F0D-BC62-D19F97F611B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E622EC-FEA8-4F0D-BC62-D19F97F611B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E622EC-FEA8-4F0D-BC62-D19F97F611B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{58A611F7-123E-42B5-B63F-AF46054C3929} = {9584ECDC-1EC9-4555-AB65-D25BD4A8EC7B}

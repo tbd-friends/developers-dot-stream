@@ -1,109 +1,44 @@
 ﻿@page "/"
+@using Developers.Stream.Components
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
-
-<div>Welcome to your new app. This is developers.stream, and you will be able to search for developers in here. Using
-    technology (C#, .NET, Blazor, Perl, PHP, Typescript, Javascript)
-</div>
-
 <input class="search-bar form-control" placeholder="Search"/>
-<button class="btn btn-primary">Click Me</button>
 
 <div class="container text-center">
     <div class="row g-3 p-3">
         <div class="col">
-            <div class="card streamer-card">
-                <img src="images/screenshot_ph.png" alt="screenshot here" class="card-img-bottom"/>
-                <div class="card-body">
-                    <h5 class="card-title">One1Lion</h5>
-                    <div class="card-text">
-                        <div>One1Lion is streaming his work project. Check him out if you are interested in real-world
-                            full-stack .NET web application development.
-                        </div>
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                 class="lucide lucide-youtube">
-                                <path
-                                    d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/>
-                                <path d="m10 15 5-3-5-3z"/>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                 class="lucide lucide-twitch">
-                                <path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <span class="badge rounded-pill text-bg-secondary">blazor</span>
-                    <span class="badge rounded-pill text-bg-secondary">c#</span>
-                    <span class="badge rounded-pill text-bg-secondary">.net</span>
-                    <span class="badge rounded-pill text-bg-secondary">community</span>
-                </div>
-            </div>
+            <StreamerCard
+                StreamerName="RamblingGeek"
+                Description="Tinkerer, Gadgeteer, Developer"
+                Badges="@( ["c#", "electronics", "random"])"
+                IsLive="true"></StreamerCard>
         </div>
         <div class="col">
-            <div class="card streamer-card">
-                <img src="images/screenshot_ph.png" alt="screenshot here" class="card-img-bottom"/>
-                <div class="card-body">
-                    <h5 class="card-title">Mojofawad</h5>
-                    <div class="card-text">
-                        <div>mojofawad is sharing his coding journey in .NET. He is currently working on a control tower
+            <StreamerCard
+                StreamerName="One1Lion"
+                Description="One1Lion is streaming his work project. Check him out if you are interested in real-world
+                            full-stack .NET web application development."
+                Badges="@( ["c#", "blazor", "community", ".net"])"
+                IsLive="true"></StreamerCard>
+        </div>
+        <div class="col">
+            <StreamerCard
+                StreamerName="Mojofawad"
+                Description="mojofawad is sharing his coding journey in .NET. He is currently working on a control tower
                             module/application for Liquid Sky on his own time and streams when he can, so follow him to
-                            be
-                            notified when he goes live
-                        </div>
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                 class="lucide lucide-twitch">
-                                <path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <span class="badge rounded-pill text-bg-secondary">appdev</span>
-                    <span class="badge rounded-pill text-bg-secondary">blazor</span>
-                    <span class="badge rounded-pill text-bg-secondary">.net</span>
-                    <span class="badge rounded-pill text-bg-secondary">aspire</span>
-                    <span class="badge rounded-pill text-bg-secondary">getting started</span>
-                </div>
-            </div>
+                            be notified when he goes live"
+                Badges="@( ["appdev", "blazor", ".net", "aspire", "getting started"])"
+                IsLive="true"></StreamerCard>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <div class="card streamer-card offline">
-                <img src="images/screenshot_ph.png" alt="screenshot here" class="card-img-bottom"/>
-                <div class="card-body">
-                    <h5 class="card-title">DFluxStreams</h5>
-                    <div class="card-text">
-                        <div>One day, this might happen again!
-                        </div>
-                        <div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                 class="lucide lucide-twitch">
-                                <path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <span class="badge rounded-pill text-bg-secondary">blazor</span>
-                    <span class="badge rounded-pill text-bg-secondary">blazor</span>
-                    <span class="badge rounded-pill text-bg-secondary">blazor</span>
-                </div>
-            </div>
-        </div>
+</div>
+<div class="row g-3 p-3">
+    <div class="col">
+        <StreamerCard
+            StreamerName="DFluxStreams"
+            Description="Maybe one day"
+            Badges="@( ["Blazor"])"
+            IsLive="false"/>
     </div>
 </div>
