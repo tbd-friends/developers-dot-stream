@@ -10,10 +10,16 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.1" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Pages\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\Developers.Stream.Adapters.Client\Developers.Stream.Adapters.Client.csproj" />
+      <ProjectReference Include="..\..\Developers.Stream.Infrastructure\Developers.Stream.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,3 +1,4 @@
+using Developers.Stream.Adapters.Server;
 using Developers.Stream.Infrastructure;
 using Developers.Stream.Infrastructure.Contexts;
 using Developers.Stream.Infrastructure.Contracts;
@@ -12,9 +13,11 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.AddNpgsqlDbContext<ApplicationDbContext>(connectionName: "developers.stream");
+builder.AddNpgsqlDbContext<ApplicationDbContext>(connectionName: "developers-stream");
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(ApplicationRepository<>));
+
+builder.Services.AddScoped<IStreamerQuery, StreamerQueryService>();
 
 var app = builder.Build();
 
