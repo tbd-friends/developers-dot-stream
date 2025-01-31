@@ -17,6 +17,7 @@ public class InitializeDbContextWorker(
         await using var context = await factory.CreateDbContextAsync(stoppingToken);
 
         await EnsureDatabaseAsync(context, stoppingToken);
+
         await RunMigrationAsync(context, stoppingToken);
     }
 
@@ -41,9 +42,7 @@ public class InitializeDbContextWorker(
 
         await strategy.ExecuteAsync(async () =>
         {
-            await using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
             await dbContext.Database.MigrateAsync(cancellationToken);
-            await transaction.CommitAsync(cancellationToken);
         });
     }
 }
