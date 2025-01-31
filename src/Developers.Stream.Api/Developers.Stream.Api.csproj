@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Mediator.Abstractions" Version="2.1.7" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Developers.Stream.Application\Developers.Stream.Application.csproj" />
+    </ItemGroup>
+
+</Project>
