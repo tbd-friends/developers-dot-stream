@@ -15,4 +15,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Developers.Stream.Infrastructure\Developers.Stream.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Developers.Stream.MigrationService\Developers.Stream.MigrationService.csproj" />
       <ProjectReference Include="..\Developers.Stream.Web\Developers.Stream.Web\Developers.Stream.Web.csproj" />
     </ItemGroup>
 

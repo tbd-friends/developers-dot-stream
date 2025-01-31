@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Developers.Stream.Infrastructure.Contracts;
+using Microsoft.AspNetCore.Components;
 
 namespace Developers.Stream.Components;
 
-public partial class StreamerCard : ComponentBase
+public partial class StreamerCard(IStreamerQuery query) : ComponentBase
 {
     [Parameter] public bool IsLive { get; set; }
     [Parameter] public string StreamerName { get; set; } = null!;
