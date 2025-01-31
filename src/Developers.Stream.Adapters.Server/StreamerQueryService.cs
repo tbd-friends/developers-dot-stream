@@ -7,8 +7,8 @@ namespace Developers.Stream.Adapters.Server;
 
 public class StreamerQueryService(ISender sender) : IStreamerQuery
 {
-    public async Task<IEnumerable<StreamerDto>> GetStreamers()
+    public async Task<IEnumerable<StreamerDto>> GetStreamers(CancellationToken cancellationToken)
     {
-        return await sender.Send(new GetLiveStreamers.Query());
+        return await sender.Send(new GetLiveStreamers.Query(), cancellationToken);
     }
 }
