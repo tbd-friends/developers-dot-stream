@@ -6,43 +6,51 @@ using Microsoft.EntityFrameworkCore.Storage;
 namespace Developers.Stream.MigrationService;
 
 public class InitializeDbContextWorker(
-    IServiceProvider serviceProvider,
-    ILogger<InitializeDbContextWorker> logger) : BackgroundService
+    IDbContextFactory<ApplicationDbContext> factory,
+    ILogger<InitializeDbContextWorker> logger,
+    IHostApplicationLifetime applicationLifetime) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using var scope = serviceProvider.CreateScope();
-        var factory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<ApplicationDbContext>>();
+        //await EnsureDatabaseAsync(context, stoppingToken);
 
-        await using var context = await factory.CreateDbContextAsync(stoppingToken);
+        await RunMigrationAsync(stoppingToken);
 
-        await EnsureDatabaseAsync(context, stoppingToken);
-
-        await RunMigrationAsync(context, stoppingToken);
+        applicationLifetime.StopApplication();
     }
 
-    private static async Task EnsureDatabaseAsync(ApplicationDbContext dbContext, CancellationToken cancellationToken)
+    private async Task EnsureDatabaseAsync(ApplicationDbContext dbContext, CancellationToken cancellationToken)
     {
         var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
 
         var strategy = dbContext.Database.CreateExecutionStrategy();
-        
+
         await strategy.ExecuteAsync(async () =>
         {
+            logger.LogInformation("Ensuring database exists");
+
             if (!await dbCreator.ExistsAsync(cancellationToken))
             {
+                logger.LogInformation("Creating database");
+
                 await dbCreator.CreateAsync(cancellationToken);
             }
         });
     }
 
-    private static async Task RunMigrationAsync(ApplicationDbContext dbContext, CancellationToken cancellationToken)
+    private async Task RunMigrationAsync(CancellationToken cancellationToken)
     {
+        await using var dbContext = await factory.CreateDbContextAsync(cancellationToken);
+
         var strategy = dbContext.Database.CreateExecutionStrategy();
 
         await strategy.ExecuteAsync(async () =>
         {
+            logger.LogInformation("Applying migrations");
+
             await dbContext.Database.MigrateAsync(cancellationToken);
+
+            logger.LogInformation("Migrations applied");
         });
     }
 }

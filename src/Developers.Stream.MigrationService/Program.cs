@@ -39,4 +39,4 @@ builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
 
 var host = builder.Build();
 
-host.Run();
+await host.RunAsync();
