@@ -8,7 +8,7 @@ namespace Developers.Stream.Application.Queries;
 
 public class GetLiveStreamers
 {
-    public record Query() : IQuery<IEnumerable<StreamerDto>>;
+    public record Query : IQuery<IEnumerable<StreamerDto>>;
 
     public class Handler(IRepository<Streamer> repository) : IQueryHandler<Query, IEnumerable<StreamerDto>>
     {

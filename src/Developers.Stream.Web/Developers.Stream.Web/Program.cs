@@ -3,6 +3,7 @@ using Developers.Stream.Infrastructure;
 using Developers.Stream.Infrastructure.Contexts;
 using Developers.Stream.Infrastructure.Contracts;
 using Developers.Stream.Web.Components;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +16,13 @@ builder.Services.AddRazorComponents()
 
 builder.AddNpgsqlDbContext<ApplicationDbContext>(connectionName: "developers-stream");
 
-builder.Services.AddScoped(typeof(IRepository<>), typeof(ApplicationRepository<>));
+builder.Services.AddTransient<ApplicationDbContext>(provider =>
+    provider.GetRequiredService<IDbContextFactory<ApplicationDbContext>>().CreateDbContext());
 
-builder.Services.AddScoped<IStreamerQuery, StreamerQueryService>();
+builder.Services.AddTransient(typeof(IRepository<>), typeof(ApplicationRepository<>));
+builder.Services.AddTransient<IStreamerQuery, StreamerQueryService>();
+
+builder.Services.AddMediator();
 
 var app = builder.Build();
 
@@ -34,7 +39,6 @@ else
 }
 
 app.UseHttpsRedirection();
-
 
 app.UseAntiforgery();
 
