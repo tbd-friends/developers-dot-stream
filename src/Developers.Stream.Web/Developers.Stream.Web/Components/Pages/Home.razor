@@ -1,44 +1,9 @@
 ﻿@page "/"
 @using Developers.Stream.Components
+@using Developers.Stream.Components.Layout
 
 <PageTitle>Home</PageTitle>
 
 <input class="search-bar form-control" placeholder="Search"/>
 
-<div class="container text-center">
-    <div class="row g-3 p-3">
-        <div class="col">
-            <StreamerCard
-                StreamerName="RamblingGeek"
-                Description="Tinkerer, Gadgeteer, Developer"
-                Badges="@( ["c#", "electronics", "random"])"
-                IsLive="true"></StreamerCard>
-        </div>
-        <div class="col">
-            <StreamerCard
-                StreamerName="One1Lion"
-                Description="One1Lion is streaming his work project. Check him out if you are interested in real-world
-                            full-stack .NET web application development."
-                Badges="@( ["c#", "blazor", "community", ".net"])"
-                IsLive="true"></StreamerCard>
-        </div>
-        <div class="col">
-            <StreamerCard
-                StreamerName="Mojofawad"
-                Description="mojofawad is sharing his coding journey in .NET. He is currently working on a control tower
-                            module/application for Liquid Sky on his own time and streams when he can, so follow him to
-                            be notified when he goes live"
-                Badges="@( ["appdev", "blazor", ".net", "aspire", "getting started"])"
-                IsLive="true"></StreamerCard>
-        </div>
-    </div>
-</div>
-<div class="row g-3 p-3">
-    <div class="col">
-        <StreamerCard
-            StreamerName="DFluxStreams"
-            Description="Maybe one day"
-            Badges="@( ["Blazor"])"
-            IsLive="false"/>
-    </div>
-</div>
+<StreamerCards />

@@ -1,9 +1,9 @@
-﻿<div class="card streamer-card @OnlineStatus">
+﻿<div class="card streamer-card live">
     <img src="images/screenshot_ph.png" alt="screenshot here" class="card-img-bottom"/>
     <div class="card-body">
-        <h5 class="card-title">@StreamerName</h5>
+        <h5 class="card-title">@Streamer.Name</h5>
         <div class="card-text">
-            <div>@Description</div>
+            <div>@Streamer.Blurb</div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                      fill="none"
@@ -23,9 +23,9 @@
         </div>
     </div>
     <div class="card-footer">
-        @foreach (var badge in Badges)
-        {
-            <span class="badge rounded-pill text-bg-secondary px-2">@badge</span>
-        }
+        @* @foreach (var badge in Badges) *@
+        @* { *@
+        @*     <span class="badge rounded-pill text-bg-secondary px-2">@badge</span> *@
+        @* } *@
     </div>
 </div>
