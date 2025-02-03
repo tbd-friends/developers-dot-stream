@@ -14,13 +14,13 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.AddNpgsqlDbContext<ApplicationDbContext>(connectionName: "developers-stream");
-
-builder.Services.AddTransient<ApplicationDbContext>(provider =>
-    provider.GetRequiredService<IDbContextFactory<ApplicationDbContext>>().CreateDbContext());
+builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(configure =>
+    configure.UseNpgsql(builder.Configuration.GetConnectionString("developers-stream")));
 
 builder.Services.AddTransient(typeof(IRepository<>), typeof(ApplicationRepository<>));
 builder.Services.AddTransient<IStreamerQuery, StreamerQueryService>();
+builder.Services.AddTransient<ApplicationDbContext>(provider =>
+    provider.GetRequiredService<IDbContextFactory<ApplicationDbContext>>().CreateDbContext());
 
 builder.Services.AddMediator();
 
