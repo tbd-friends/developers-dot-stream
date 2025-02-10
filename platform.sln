@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Adapters.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Adapters.Client", "src\Developers.Stream.Adapters.Client\Developers.Stream.Adapters.Client.csproj", "{C5BE1F40-4A4D-45FB-BFB0-6182AEC6F3E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Infrastructure.Auth", "src\Developers.Stream.Infrastructure.Auth\Developers.Stream.Infrastructure.Auth.csproj", "{07F41C7C-4F0E-44D4-922C-CCDAD436AA16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -106,6 +108,10 @@ Global
 		{C5BE1F40-4A4D-45FB-BFB0-6182AEC6F3E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5BE1F40-4A4D-45FB-BFB0-6182AEC6F3E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5BE1F40-4A4D-45FB-BFB0-6182AEC6F3E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07F41C7C-4F0E-44D4-922C-CCDAD436AA16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07F41C7C-4F0E-44D4-922C-CCDAD436AA16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07F41C7C-4F0E-44D4-922C-CCDAD436AA16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07F41C7C-4F0E-44D4-922C-CCDAD436AA16}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{58A611F7-123E-42B5-B63F-AF46054C3929} = {9584ECDC-1EC9-4555-AB65-D25BD4A8EC7B}
@@ -119,5 +125,6 @@ Global
 		{FE5BEFAA-AAEE-4631-931D-B3A26EFA37FE} = {9584ECDC-1EC9-4555-AB65-D25BD4A8EC7B}
 		{277BFAC5-5363-43DF-9FF5-D32E631FBF61} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
 		{C5BE1F40-4A4D-45FB-BFB0-6182AEC6F3E5} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
+		{07F41C7C-4F0E-44D4-922C-CCDAD436AA16} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
 	EndGlobalSection
 EndGlobal
