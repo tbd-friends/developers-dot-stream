@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<InitializeDbContextWorker>();
-builder.Services.AddHostedService<InitializeAuthContextWorker>();
 
 builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
 {
