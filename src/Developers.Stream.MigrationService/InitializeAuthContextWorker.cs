@@ -1,13 +1,11 @@
-using Developers.Stream.Infrastructure.Contexts;
+using Developers.Stream.Infrastructure.Auth.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Developers.Stream.MigrationService;
 
-public class InitializeDbContextWorker(
-    IDbContextFactory<ApplicationDbContext> factory,
-    ILogger<InitializeDbContextWorker> logger,
+public class InitializeAuthContextWorker(
+    IDbContextFactory<AuthDbContext> factory,
+    ILogger<InitializeAuthContextWorker> logger,
     IHostApplicationLifetime applicationLifetime) : BackgroundService
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)

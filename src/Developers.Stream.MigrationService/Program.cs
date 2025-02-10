@@ -1,10 +1,12 @@
 using Developers.Stream.Domain;
+using Developers.Stream.Infrastructure.Auth.Contexts;
 using Developers.Stream.Infrastructure.Contexts;
 using Developers.Stream.MigrationService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<InitializeDbContextWorker>();
+builder.Services.AddHostedService<InitializeAuthContextWorker>();
 
 builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
 {
@@ -35,6 +37,13 @@ builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
         builder.Configuration.GetConnectionString("developers-stream"),
         x => x.MigrationsAssembly("Developers.Stream.Migrations"));
 #endif
+});
+
+builder.Services.AddPooledDbContextFactory<AuthDbContext>(options =>
+{
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("developers-stream-auth"),
+        x => x.MigrationsAssembly("Developers.Stream.Migrations"));
 });
 
 var host = builder.Build();

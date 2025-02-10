@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Developers.Stream.Infrastructure.Auth\Developers.Stream.Infrastructure.Auth.csproj" />
       <ProjectReference Include="..\Developers.Stream.Infrastructure\Developers.Stream.Infrastructure.csproj" />
       <ProjectReference Include="..\Developers.Stream.Migrations\Developers.Stream.Migrations.csproj" />
     </ItemGroup>
