@@ -1,9 +1,6 @@
 using Developers.Stream.Infrastructure.Auth.Contexts;
 using Developers.Stream.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
-
 namespace Developers.Stream.MigrationService;
 
 public class InitializeDbContextWorker(
