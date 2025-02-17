@@ -4,18 +4,27 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>9a4e5c6b-1819-41bc-8db1-3d68c4d604e4</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.0" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="9.0.2" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
+		<PackageReference Include="AspNet.Security.OAuth.Twitch" Version="9.0.0" />
+
         <ProjectReference Include="..\..\Developers.Stream.Adapters.Server\Developers.Stream.Adapters.Server.csproj" />
         <ProjectReference Include="..\..\Developers.Stream.Components\Developers.Stream.Components.csproj" />
+        <ProjectReference Include="..\..\Developers.Stream.Infrastructure.Auth\Developers.Stream.Infrastructure.Auth.csproj" />
         <ProjectReference Include="..\..\Developers.Stream.Infrastructure\Developers.Stream.Infrastructure.csproj" />
         <ProjectReference Include="..\..\Developers.Stream.ServiceDefaults\Developers.Stream.ServiceDefaults.csproj" />
-        <ProjectReference Include="..\Developers.Stream.Web.Client\Developers.Stream.Web.Client.csproj"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0"/>
+        <ProjectReference Include="..\Developers.Stream.Web.Client\Developers.Stream.Web.Client.csproj" />
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Configuration\" />
     </ItemGroup>
 
 </Project>

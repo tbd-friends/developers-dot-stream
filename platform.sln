@@ -15,8 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Web.Clien
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{481C8740-EF28-403B-82D1-713DAD33ACC8}"
 	ProjectSection(SolutionItems) = preProject
-		..\notes.txt = ..\notes.txt
 		README.md = README.md
+		..\notes.md = ..\notes.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Components", "src\Developers.Stream.Components\Developers.Stream.Components.csproj", "{99E622EC-FEA8-4F0D-BC62-D19F97F611B2}"

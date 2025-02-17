@@ -1,28 +1,25 @@
-using Developers.Stream.Adapters.Server;
-using Developers.Stream.Infrastructure;
-using Developers.Stream.Infrastructure.Contexts;
-using Developers.Stream.Infrastructure.Contracts;
+using Developers.Stream.Infrastructure.Auth;
 using Developers.Stream.Web.Components;
-using Microsoft.EntityFrameworkCore;
+using Developers.Stream.Web.Components.Account;
+using Developers.Stream.Web.Configuration;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
+builder
+    .AddServiceDefaults()
+    .AddDatabase()
+    .AddAuth();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
-    .AddInteractiveWebAssemblyComponents();
-
-builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(configure =>
-    configure.UseNpgsql(builder.Configuration.GetConnectionString("developers-stream")));
-
-builder.Services.AddTransient(typeof(IRepository<>), typeof(ApplicationRepository<>));
-builder.Services.AddTransient<IStreamerQuery, StreamerQueryService>();
-builder.Services.AddTransient<ApplicationDbContext>(provider =>
-    provider.GetRequiredService<IDbContextFactory<ApplicationDbContext>>().CreateDbContext());
+    .AddInteractiveWebAssemblyComponents()
+    .AddAuthenticationStateSerialization();
 
 builder.Services.AddMediator();
+
+builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 var app = builder.Build();
 
@@ -42,10 +39,16 @@ app.UseHttpsRedirection();
 
 app.UseAntiforgery();
 
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(Developers.Stream.Web.Client._Imports).Assembly);
+
+app.MapAdditionalIdentityEndpoints();
 
 app.Run();

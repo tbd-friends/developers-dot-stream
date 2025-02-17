@@ -1,9 +1,20 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@inherits LayoutComponentBase
 
 <div class="page">
     <main>
         <div class="top-row px-4">
             <h3>developers//stream</h3>
+
+            <AuthorizeView>
+                <NotAuthorized>
+                    <NavLink class="nav-link" href="Account/Login">Login</NavLink>
+                    <NavLink class="nav-link" href="Account/Register">Register</NavLink>
+                </NotAuthorized>
+                <Authorized>
+                    Signed In
+                </Authorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">

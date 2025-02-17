@@ -11,4 +11,9 @@ builder.Services.AddHttpClient<StreamerApiClient>(configure =>
 
 builder.Services.AddScoped<IStreamerQuery, StreamerApiClient>();
 
+builder.Services.AddAuthorizationCore();
+builder.Services.AddCascadingAuthenticationState();
+builder.Services.AddAuthenticationStateDeserialization();
+
+
 await builder.Build().RunAsync();
