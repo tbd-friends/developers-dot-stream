@@ -1,6 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var passwordParameter = builder.AddParameter("postgres-password", "passwords-should-be-safe");
+var passwordParameter = builder.AddParameter("postgres-password", "safePwsAreBetter");
 
 var postgres = builder.AddPostgres("postgres", password: passwordParameter)
     .WithDataVolume()
