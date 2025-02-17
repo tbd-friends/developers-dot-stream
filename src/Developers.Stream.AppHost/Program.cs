@@ -1,6 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var postgres = builder.AddPostgres("postgres")
+var passwordParameter = builder.AddParameter("postgres-password", "passwords-should-be-safe");
+
+var postgres = builder.AddPostgres("postgres", password: passwordParameter)
+    .WithDataVolume()
     .WithPgWeb();
 
 var postgresdb = postgres.AddDatabase("developers-stream");
@@ -14,6 +17,7 @@ var migrationService = builder.AddProject<Projects.Developers_Stream_MigrationSe
 
 builder.AddProject<Projects.Developers_Stream_Web>("web")
     .WithReference(postgresdb)
+    .WithReference(authpostgresdb)
     .WaitForCompletion(migrationService);
 
 builder.Build().Run();
