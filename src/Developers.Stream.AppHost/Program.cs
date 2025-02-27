@@ -15,9 +15,15 @@ var migrationService = builder.AddProject<Projects.Developers_Stream_MigrationSe
     .WaitFor(postgresdb)
     .WaitFor(authpostgresdb);
 
+var api = builder.AddProject<Projects.Developers_Stream_Api>("api")
+    .WithReference(postgresdb)
+    .WithReference(authpostgresdb)
+    .WaitForCompletion(migrationService);
+
 builder.AddProject<Projects.Developers_Stream_Web>("web")
     .WithReference(postgresdb)
     .WithReference(authpostgresdb)
+    .WithReference(api)
     .WaitForCompletion(migrationService);
 
 builder.Build().Run();

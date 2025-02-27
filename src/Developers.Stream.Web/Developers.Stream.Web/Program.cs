@@ -1,4 +1,5 @@
 using Developers.Stream.Infrastructure.Auth;
+using Developers.Stream.Infrastructure.Twitch;
 using Developers.Stream.Web.Components;
 using Developers.Stream.Web.Components.Account;
 using Developers.Stream.Web.Configuration;
@@ -18,6 +19,13 @@ builder.Services.AddRazorComponents()
     .AddAuthenticationStateSerialization();
 
 builder.Services.AddMediator();
+
+builder.Services.Configure<TwitchConfiguration>(builder.Configuration.GetSection("twitch"));
+
+builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["twitch:authUrl"]!);
+});
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 

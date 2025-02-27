@@ -4,17 +4,22 @@
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <UserSecretsId>de096a63-4426-4345-b6b5-94270895de40</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Mediator.Abstractions" Version="2.1.7" />
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.2" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Developers.Stream.Application\Developers.Stream.Application.csproj" />
+      <ProjectReference Include="..\Developers.Stream.Infrastructure.Twitch\Developers.Stream.Infrastructure.Twitch.csproj" />
+      <ProjectReference Include="..\Developers.Stream.ServiceDefaults\Developers.Stream.ServiceDefaults.csproj" />
     </ItemGroup>
 
 </Project>
