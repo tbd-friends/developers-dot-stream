@@ -1,4 +1,6 @@
+using Developers.Stream.Adapters.Server;
 using Developers.Stream.Infrastructure.Auth;
+using Developers.Stream.Infrastructure.Contracts;
 using Developers.Stream.Infrastructure.Twitch;
 using Developers.Stream.Web.Components;
 using Developers.Stream.Web.Components.Account;
@@ -45,11 +47,11 @@ else
 
 app.UseHttpsRedirection();
 
-app.UseAntiforgery();
-
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseAntiforgery();
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
