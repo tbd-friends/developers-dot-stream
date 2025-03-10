@@ -30,6 +30,7 @@ builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client =>
 });
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+builder.Services.AddTransient<IStreamerProfile, StreamerProfileService>();
 
 var app = builder.Build();
 

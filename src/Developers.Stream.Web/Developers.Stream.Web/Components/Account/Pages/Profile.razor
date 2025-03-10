@@ -1,17 +1,63 @@
-﻿@using Microsoft.AspNetCore.Authorization
+﻿@using System.ComponentModel.DataAnnotations
+@using System.Diagnostics.CodeAnalysis
+@using System.Security.Claims
+@using Developers.Stream.Infrastructure.Contracts
+@using Microsoft.AspNetCore.Components.Authorization
 
 @page "/account/profile"
-@attribute [Authorize]
 
 <h3>Profile</h3>
 
-<!-- If Not Twitch Auth'd -->
-<a href="@(GetTwitchAuthUrl())">Connect Twitch</a>
+<AuthorizeView Context="authContext">
+    <Authorized>
+        <EditForm Model="Input" OnValidSubmit="UpdateProfile" FormName="userProfileDetails">
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.Name" id="Input.Name" class="form-control" autocomplete="off"
+                           aria-required="true" placeholder="MyStreamerName"/>
+                <label for="Input.Name" class="form-label">Name</label>
+                <ValidationMessage For="() => Input.Name" class="text-danger"/>
+            </div>
+            <div class="form-floating mb-3">
+                <InputTextArea @bind-Value="Input.Blurb" id="Input.Blurb" class="form-control" aria-required="true"
+                               placeholder="Enter some blurb to describe yourself here"></InputTextArea>
+                <label for="Input.Blurb" class="form-label">About Me</label>
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
+        </EditForm>
+        <!-- If Not Twitch Auth'd -->
+        <a href="@(GetTwitchAuthUrl())">Connect Twitch</a>
+    </Authorized>
+</AuthorizeView>
 
 @code {
+
+    [SupplyParameterFromForm] private InputModel Input { get; set; } = new();
+
+    [Inject, AllowNull] public IStreamerProfile ProfileService { get; set; }
+    [Inject, AllowNull] public AuthenticationStateProvider StateProvider { get; set; }
 
     public string GetTwitchAuthUrl()
     {
         return @"https://id.twitch.tv/oauth2/authorize?response_type=code&client_id=k27j3qhc3abd81f8fw5rq8dn02tk1g&redirect_uri=https://localhost:7173/link-account&scope=openid&state=c3ab8aa609ea11e793ae92361f002671&nonce=c3ab8aa609ea11e793ae92361f002671";
     }
+
+    private async Task UpdateProfile()
+    {
+        var state = await StateProvider.GetAuthenticationStateAsync();
+
+        await ProfileService.UpdateProfile(
+            Guid.Parse(state.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value),
+            Input.Name,
+            Input.Blurb,
+            CancellationToken.None
+        );
+    }
+
+    private sealed class InputModel
+    {
+        [Required] public string Name { get; set; } = "";
+        public string Blurb { get; set; } = null!;
+    }
+
 }
