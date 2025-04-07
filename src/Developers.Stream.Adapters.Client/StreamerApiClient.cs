@@ -27,4 +27,9 @@ public class StreamerApiClient(HttpClient client) : IStreamerQuery, IStreamerPro
         // Forwarding auth to provide user identifier on othe
         throw new NotImplementedException();
     }
+
+    public Task<string> RegisterTwitchChannel(Guid userIdentifier, CancellationToken cancellation)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
@@ -43,6 +44,7 @@ namespace Developers.Stream.Migrations.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Identifier = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Blurb = table.Column<string>(type: "text", nullable: false)
                 },
@@ -60,7 +62,8 @@ namespace Developers.Stream.Migrations.Migrations
                     StreamerId = table.Column<int>(type: "integer", nullable: false),
                     PlatformId = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Url = table.Column<string>(type: "text", nullable: false)
+                    State = table.Column<string>(type: "text", nullable: false),
+                    IsVerified = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {

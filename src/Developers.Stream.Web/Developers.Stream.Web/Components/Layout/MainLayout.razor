@@ -1,4 +1,8 @@
-﻿@using Microsoft.AspNetCore.Components.Authorization
+﻿@rendermode InteractiveServer
+@using System.Diagnostics.CodeAnalysis
+@using Developers.Stream.Infrastructure.Auth
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
 @inherits LayoutComponentBase
 
 <div class="page">
@@ -13,6 +17,7 @@
                 </NotAuthorized>
                 <Authorized>
                     <NavLink class="nav-link" href="Account/Profile">Profile</NavLink>
+                    <Button class="btn btn-secondary" @onclick="async() => await Logout()">Logout</Button>
                 </Authorized>
             </AuthorizeView>
         </div>
@@ -28,3 +33,14 @@
     <a href="." class="reload">Reload</a>
     <span class="dismiss">🗙</span>
 </div>
+
+@code {
+
+    [Inject, AllowNull] private SignInManager<ApplicationUser> SignInManager { get; set; }
+
+    private async Task Logout()
+    {
+        await SignInManager.SignOutAsync();
+    }
+
+}
