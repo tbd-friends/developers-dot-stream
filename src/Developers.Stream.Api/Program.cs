@@ -1,8 +1,12 @@
 using Developers.Stream.Api.Configuration;
+using Developers.Stream.Api.Infrastructure;
 using Developers.Stream.Application.Commands;
 using Developers.Stream.Application.Queries;
 using Developers.Stream.Infrastructure.Twitch;
 using Mediator;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +20,12 @@ builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["twitch:authUrl"]!);
 });
+
+builder.Services
+    .AddSingleton<TwitchChannelNameFromAuthenticationDelegate>(_ =>
+        TwitchDefaults.FetchChannelFromAuthenticationResponse);
+
+builder.Services.Configure<ServicesConfiguration>(builder.Configuration.GetSection("services"));
 
 builder.Services.AddOpenApi();
 
@@ -31,6 +41,14 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapGet("/streamers", async (ISender sender) => await sender.Send(new GetLiveStreamers.Query()));
-app.MapGet("/link-account", async (ISender sender, string code) => await sender.Send(new LinkTwitchAccount.Command(code)));
+app.MapGet("/link-account", async (ISender sender,
+    IOptions<ServicesConfiguration> configuration,
+    string code,
+    string state) =>
+{
+    await sender.Send(new LinkTwitchAccount.Command(code, state));
+
+    return Results.Redirect(configuration.Value.ProfileRedirect);
+});
 
 app.Run();
