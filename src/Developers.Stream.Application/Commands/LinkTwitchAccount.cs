@@ -17,24 +17,29 @@ public class LinkTwitchAccount
     {
         public async ValueTask<Unit> Handle(Command command, CancellationToken cancellationToken)
         {
-            var authentication = await client.FetchAuthenticationFromCode(command.Code);
-
             var channel =
                 await repository.SingleOrDefaultAsync(new UnverifiedChannelByStateSpec(command.State),
                     cancellationToken);
 
-            if (channel is null || !authentication.IsValid)
+            if (channel is null)
             {
                 return Unit.Value;
             }
+
+            var authentication = await client.FetchAuthenticationFromCode(command.Code);
             
+            if (!authentication.IsValid)
+            {
+                return Unit.Value;
+            }
+
             var channelName = await fetchChannelName(authentication);
 
             if (channelName is null)
             {
                 return Unit.Value;
             }
-            
+
             channel.IsVerified = true;
             channel.State = string.Empty;
             channel.Name = channelName;
