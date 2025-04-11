@@ -32,6 +32,10 @@ builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client =>
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddTransient<IStreamerProfile, StreamerProfileService>();
 
+builder.Services
+    .AddSingleton<TwitchChannelNameFromAuthenticationDelegate>(_ =>
+        TwitchDefaults.FetchChannelFromAuthenticationResponse);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
