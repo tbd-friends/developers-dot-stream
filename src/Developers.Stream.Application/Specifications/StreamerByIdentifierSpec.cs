@@ -10,3 +10,16 @@ public sealed class StreamerByIdentifierSpec : Specification<Streamer>, ISingleR
         Query.Where(s => s.Identifier == identifier);
     }
 }
+
+public sealed class StreamerByIdentifierWithDetailsSpec : Specification<Streamer>, ISingleResultSpecification<Streamer>
+{
+    public StreamerByIdentifierWithDetailsSpec(Guid identifier)
+    {
+        Query
+            .Include(s => s.Channels)
+            .ThenInclude(c => c.Platform)
+            .Include(s => s.Tags)
+            .Where(s => s.Identifier == identifier)
+            .AsNoTracking();
+    }
+}

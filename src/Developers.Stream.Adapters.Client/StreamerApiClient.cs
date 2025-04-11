@@ -5,7 +5,7 @@ using Developers.Stream.Shared_Kernel.DataTransfer;
 
 namespace Developers.Stream.Adapters.Client;
 
-public class StreamerApiClient(HttpClient client) : IStreamerQuery, IStreamerProfile
+public class StreamerApiClient(HttpClient client) : IStreamerQuery, IStreamerProfileService
 {
     public async Task<IEnumerable<StreamerDto>> GetStreamers(CancellationToken cancellationToken)
     {
@@ -20,6 +20,11 @@ public class StreamerApiClient(HttpClient client) : IStreamerQuery, IStreamerPro
         }
 
         return [];
+    }
+
+    public Task<StreamerProfile> FetchProfile(Guid userIdentifier, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 
     public Task UpdateProfile(Guid userIdentifier, string name, string blurb, CancellationToken cancellationToken)

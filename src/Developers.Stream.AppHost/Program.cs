@@ -1,8 +1,10 @@
+using System.Net.Sockets;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var passwordParameter = builder.AddParameter("postgres-password", "safePwsAreBetter");
 
-var postgres = builder.AddPostgres("postgres", password: passwordParameter)
+var postgres = builder.AddPostgres("postgres", password: passwordParameter, port: 15432)
     .WithDataVolume()
     .WithPgWeb();
 
