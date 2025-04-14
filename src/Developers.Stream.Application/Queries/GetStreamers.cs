@@ -6,7 +6,7 @@ using Mediator;
 
 namespace Developers.Stream.Application.Queries;
 
-public class GetLiveStreamers
+public class GetStreamers
 {
     public record Query : IQuery<IEnumerable<StreamerDto>>;
 
@@ -14,7 +14,7 @@ public class GetLiveStreamers
     {
         public async ValueTask<IEnumerable<StreamerDto>> Handle(Query query, CancellationToken cancellationToken)
         {
-            var streamers = await repository.ListAsync(new AllStreamersSpec(), cancellationToken);
+            var streamers = await repository.ListAsync(new StreamersWithLinkedChannelsSpec(), cancellationToken);
 
             return streamers;
         }
