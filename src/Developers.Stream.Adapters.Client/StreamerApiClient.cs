@@ -5,7 +5,9 @@ using Developers.Stream.Shared_Kernel.DataTransfer;
 
 namespace Developers.Stream.Adapters.Client;
 
-public class StreamerApiClient(HttpClient client) : IStreamerQuery, IStreamerProfileService
+public class StreamerApiClient(HttpClient client) :
+    IStreamerQuery,
+    IStreamerProfileService
 {
     public async Task<IEnumerable<StreamerDto>> GetStreamers(CancellationToken cancellationToken)
     {
@@ -33,7 +35,7 @@ public class StreamerApiClient(HttpClient client) : IStreamerQuery, IStreamerPro
         throw new NotImplementedException();
     }
 
-    public Task<string> RegisterTwitchChannel(Guid userIdentifier, CancellationToken cancellation)
+    public async Task<string> FetchTwitchRegistrationLink(Guid userIdentifier, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

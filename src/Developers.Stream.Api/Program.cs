@@ -40,7 +40,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/streamers", async (ISender sender) => await sender.Send(new GetLiveStreamers.Query()));
+app.MapGet("/streamers", async (ISender sender) => await sender.Send(new GetStreamers.Query()));
 app.MapGet("/link-account", async (ISender sender,
     IOptions<ServicesConfiguration> configuration,
     string code,
