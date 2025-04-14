@@ -6,7 +6,7 @@ public interface IStreamerProfileService
 {
     Task<StreamerProfile> FetchProfile(Guid userIdentifier, CancellationToken cancellationToken);
     Task UpdateProfile(Guid userIdentifier, string name, string blurb, CancellationToken cancellationToken);
-    Task<string> RegisterTwitchChannel(Guid userIdentifier, CancellationToken cancellation);
+    Task<string> FetchTwitchRegistrationLink(Guid userIdentifier, CancellationToken cancellation);
 }
 
 public record StreamerProfile(
