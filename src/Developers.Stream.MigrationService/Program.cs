@@ -13,7 +13,7 @@ builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
     options.UseNpgsql(
             builder.Configuration.GetConnectionString("developers-stream"),
             x => x.MigrationsAssembly("Developers.Stream.Migrations"))
-        .UseAsyncSeeding(async (context, storeManagement, cancellationToken) =>
+        .UseAsyncSeeding(async (context, _, cancellationToken) =>
         {
             if (!context.Set<Platform>().Any())
             {
@@ -24,12 +24,6 @@ builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
                 );
 
                 await context.SaveChangesAsync(cancellationToken);
-
-                await context.Set<Streamer>().AddRangeAsync(
-                    new Streamer { Name = "One1Lion", Blurb = "Amazing Dev, works with Blazor, big fan!" },
-                    new Streamer { Name = "Mojofawad", Blurb = "Does stream, honestly" },
-                    new Streamer { Name = "RamblingGeek", Blurb = "Streams about technology, tinkering and projects!" }
-                );
             }
 
             await context.SaveChangesAsync(cancellationToken);
