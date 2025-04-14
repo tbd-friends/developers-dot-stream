@@ -7,17 +7,22 @@
 <div class="page">
     <main>
         <div class="top-row px-4">
-            <h3>developers//stream</h3>
-
-            <AuthorizeView>
-                <NotAuthorized>
-                    <NavLink class="nav-link" href="Account/Login">Login</NavLink>
-                    <NavLink class="nav-link" href="Account/Register">Register</NavLink>
-                </NotAuthorized>
-                <Authorized>
-                    <NavLink class="nav-link" href="Account/Profile">Profile</NavLink>
-                </Authorized>
-            </AuthorizeView>
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3><a href="/" class="nav-link">developers//stream</a></h3>
+                </div>
+                <div class="col">
+                    <AuthorizeView>
+                        <NotAuthorized>
+                            <NavLink class="nav-link" href="Account/Login">Login</NavLink>
+                            <NavLink class="nav-link" href="Account/Register">Register</NavLink>
+                        </NotAuthorized>
+                        <Authorized>
+                            <NavLink class="nav-link" href="Account/Profile">Profile</NavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
+            </div>
         </div>
 
         <article class="content px-4">
