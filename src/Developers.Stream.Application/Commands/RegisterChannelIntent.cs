@@ -29,7 +29,7 @@ public class RegisterChannelIntent
 
             ArgumentNullException.ThrowIfNull(platform, nameof(platform));
 
-            await channelRepository.AddAsync(new Channel()
+            await channelRepository.AddAsync(new Channel
             {
                 Name = string.Empty,
                 StreamerId = streamer.Id,

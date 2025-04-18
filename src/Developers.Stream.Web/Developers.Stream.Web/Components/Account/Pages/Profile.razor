@@ -31,7 +31,8 @@
         </EditForm>
         @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Twitch))
         {
-            <button class="w-100 btn btn-lg btn-primary" @onclick="@(async () => await RegisterTwitchAccount())">Link
+            <button class="w-100 btn btn-lg btn-primary"
+                    @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Twitch))">Link
                 Twitch
                 Account
             </button>
@@ -40,6 +41,19 @@
         {
             <div>Twitch Is Linked</div>
         }
+        @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.YouTube))
+        {
+            <button class="w-100 btn btn-lg btn-primary"
+                    @onclick="@(async () => await RegisterAccount(PlatformIdentifier.YouTube))">Link
+                YouTube
+                Account
+            </button>
+        }
+        else
+        {
+            <div>YouTube Is Linked</div>
+        }
+
     </Authorized>
 </AuthorizeView>
 
@@ -63,11 +77,12 @@
         Input.Blurb = StreamerProfile.Blurb;
     }
 
-    private async Task RegisterTwitchAccount()
+    private async Task RegisterAccount(PlatformIdentifier identifier)
     {
         var userState = await StateProvider.GetAuthenticationStateAsync();
 
-        string link = await ProfileService.FetchTwitchRegistrationLink(userState.GetUserId(), CancellationToken.None);
+        string link =
+            identifier == PlatformIdentifier.Twitch ? await ProfileService.FetchTwitchRegistrationLink(userState.GetUserId(), CancellationToken.None) : await ProfileService.FetchYouTubeRegistrationLink(userState.GetUserId(), CancellationToken.None);
 
         Navigation.NavigateTo(link);
     }

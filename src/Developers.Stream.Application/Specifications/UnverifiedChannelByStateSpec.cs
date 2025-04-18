@@ -7,6 +7,9 @@ public sealed class UnverifiedChannelByStateSpec : Specification<Channel>, ISing
 {
     public UnverifiedChannelByStateSpec(string state)
     {
-        Query.Where(s => s.State == state && !s.IsVerified);
+        Query
+            .Include(s => s.Platform)
+            .Include(s => s.Streamer)
+            .Where(s => s.State == state && !s.IsVerified);
     }
 }

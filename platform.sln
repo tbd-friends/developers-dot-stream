@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Infrastructure.Twitch", "src\Developers.Stream.Infrastructure.Twitch\Developers.Stream.Infrastructure.Twitch.csproj", "{563DA100-DBA4-4F17-8EAE-3FEA1BA401E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Infrastructure.YouTube", "src\Developers.Stream.Infrastructure.YouTube\Developers.Stream.Infrastructure.YouTube.csproj", "{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{563DA100-DBA4-4F17-8EAE-3FEA1BA401E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{563DA100-DBA4-4F17-8EAE-3FEA1BA401E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{563DA100-DBA4-4F17-8EAE-3FEA1BA401E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,5 +141,6 @@ Global
 		{C5BE1F40-4A4D-45FB-BFB0-6182AEC6F3E5} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
 		{07F41C7C-4F0E-44D4-922C-CCDAD436AA16} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
 		{563DA100-DBA4-4F17-8EAE-3FEA1BA401E5} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
+		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
 	EndGlobalSection
 EndGlobal

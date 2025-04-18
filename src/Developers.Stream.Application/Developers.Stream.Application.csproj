@@ -9,6 +9,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Developers.Stream.Domain\Developers.Stream.Domain.csproj" />
       <ProjectReference Include="..\Developers.Stream.Infrastructure.Twitch\Developers.Stream.Infrastructure.Twitch.csproj" />
+      <ProjectReference Include="..\Developers.Stream.Infrastructure.YouTube\Developers.Stream.Infrastructure.YouTube.csproj" />
       <ProjectReference Include="..\Developers.Stream.Infrastructure\Developers.Stream.Infrastructure.csproj" />
       <ProjectReference Include="..\Developers.Stream.Shared-Kernel\Developers.Stream.Shared-Kernel.csproj" />
     </ItemGroup>

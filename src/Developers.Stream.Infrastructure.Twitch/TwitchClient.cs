@@ -1,17 +1,19 @@
 ﻿using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using Ardalis.Result;
 using Microsoft.Extensions.Options;
 
 namespace Developers.Stream.Infrastructure.Twitch;
 
 public class TwitchClient(
     HttpClient client,
-    IOptions<TwitchConfiguration> configuration
-    ) : ITwitchClient
+    IOptions<TwitchConfiguration> configuration,
+    TwitchChannelNameFromAuthenticationDelegate fetchChannelName
+) : ITwitchClient
 {
     private readonly TwitchConfiguration _configuration = configuration.Value;
 
-    public async Task<TwitchAuthenticationResponse> FetchAuthenticationFromCode(string code)
+    public async Task<Result<string>> FetchChannelNameUsingAuthenticationCode(string code)
     {
         var request = new HttpRequestMessage(HttpMethod.Post, "/oauth2/token")
         {
@@ -29,11 +31,23 @@ public class TwitchClient(
 
         if (!response.IsSuccessStatusCode)
         {
-            return TwitchAuthenticationResponse.Invalid;
+            return Result.Error();
         }
 
-        var result = await response.Content.ReadFromJsonAsync<TwitchAuthenticationResponse>();
+        var twitchAuthenticationResponse = await response.Content.ReadFromJsonAsync<TwitchAuthenticationResponse>();
 
-        return result!;
+        if (twitchAuthenticationResponse is not { IsValid: true })
+        {
+            return Result.Forbidden();
+        }
+
+        var channelName = await fetchChannelName(twitchAuthenticationResponse);
+
+        if (channelName is null)
+        {
+            return Result.NotFound();
+        }
+
+        return Result.Success(channelName);
     }
 }

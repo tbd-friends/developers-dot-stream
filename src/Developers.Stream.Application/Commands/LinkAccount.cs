@@ -2,18 +2,20 @@
 using Developers.Stream.Domain;
 using Developers.Stream.Infrastructure.Contracts;
 using Developers.Stream.Infrastructure.Twitch;
+using Developers.Stream.Infrastructure.YouTube;
+using Developers.Stream.Shared_Kernel;
 using Mediator;
 
 namespace Developers.Stream.Application.Commands;
 
-public class LinkTwitchAccount
+public class LinkAccount
 {
     public record Command(string Code, string State) : ICommand;
 
     public class Handler(
         ITwitchClient client,
-        IRepository<Channel> repository,
-        TwitchChannelNameFromAuthenticationDelegate fetchChannelName) : ICommandHandler<Command>
+        IYouTubeClient ytClient,
+        IRepository<Channel> repository) : ICommandHandler<Command>
     {
         public async ValueTask<Unit> Handle(Command command, CancellationToken cancellationToken)
         {
@@ -26,18 +28,16 @@ public class LinkTwitchAccount
                 return Unit.Value;
             }
 
-            var authentication = await client.FetchAuthenticationFromCode(command.Code);
-            
-            if (!authentication.IsValid)
+            string channelName = string.Empty;
+
+            if (channel.Platform.Name == PlatformIdentifier.Twitch)
             {
-                return Unit.Value;
+                channelName = await client.FetchChannelNameUsingAuthenticationCode(command.Code);
             }
 
-            var channelName = await fetchChannelName(authentication);
-
-            if (channelName is null)
+            if (channel.Platform.Name == PlatformIdentifier.YouTube)
             {
-                return Unit.Value;
+                channelName = await ytClient.FetchChannelNameUsingAuthenticationCode(command.Code);
             }
 
             channel.IsVerified = true;
@@ -45,6 +45,7 @@ public class LinkTwitchAccount
             channel.Name = channelName;
 
             await repository.UpdateAsync(channel, cancellationToken);
+
 
             return Unit.Value;
         }

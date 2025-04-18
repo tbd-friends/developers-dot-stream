@@ -5,7 +5,7 @@ namespace Developers.Stream.Shared_Kernel;
 public class PlatformIdentifier
 {
     public static PlatformIdentifier Twitch = new("Twitch", "https://twitch.tv/");
-    public static PlatformIdentifier YouTube = new("YouTube", "https://www.youtube.com/@");
+    public static PlatformIdentifier YouTube = new("YouTube", "https://www.youtube.com/");
     public static PlatformIdentifier Kick = new("Kick", "https://www.kick.tv/");
 
     public string Identifier { get; }

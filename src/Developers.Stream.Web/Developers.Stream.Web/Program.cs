@@ -2,6 +2,7 @@ using Developers.Stream.Adapters.Server;
 using Developers.Stream.Infrastructure.Auth;
 using Developers.Stream.Infrastructure.Contracts;
 using Developers.Stream.Infrastructure.Twitch;
+using Developers.Stream.Infrastructure.YouTube;
 using Developers.Stream.Web.Components;
 using Developers.Stream.Web.Components.Account;
 using Developers.Stream.Web.Configuration;
@@ -23,11 +24,14 @@ builder.Services.AddRazorComponents()
 builder.Services.AddMediator();
 
 builder.Services.Configure<TwitchConfiguration>(builder.Configuration.GetSection("twitch"));
+builder.Services.Configure<YouTubeConfiguration>(builder.Configuration.GetSection("youtube"));
 
 builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["twitch:authUrl"]!);
 });
+
+builder.Services.AddTransient<IYouTubeClient, YouTubeClient>();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddTransient<IStreamerProfileService, StreamerProfileService>();

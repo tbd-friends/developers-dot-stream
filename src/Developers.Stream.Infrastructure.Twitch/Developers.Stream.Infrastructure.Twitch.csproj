@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Ardalis.Result" Version="10.1.0" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="9.0.4" />
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.8.0" />
     <PackageReference Include="System.Net.Http.Json" Version="9.0.4" />

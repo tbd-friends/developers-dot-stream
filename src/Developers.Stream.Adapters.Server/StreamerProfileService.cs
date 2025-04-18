@@ -2,6 +2,7 @@
 using Developers.Stream.Application.Queries;
 using Developers.Stream.Infrastructure.Contracts;
 using Developers.Stream.Infrastructure.Twitch;
+using Developers.Stream.Infrastructure.YouTube;
 using Developers.Stream.Shared_Kernel;
 using Developers.Stream.Shared_Kernel.Infrastructure;
 using Mediator;
@@ -11,9 +12,28 @@ namespace Developers.Stream.Adapters.Server;
 
 public class StreamerProfileService(
     ISender sender,
-    IOptions<TwitchConfiguration> twitchOptions) : IStreamerProfileService
+    IOptions<TwitchConfiguration> twitchOptions,
+    IOptions<YouTubeConfiguration> youtubeOptions) : IStreamerProfileService
 {
     private readonly TwitchConfiguration _configuration = twitchOptions.Value;
+    private readonly YouTubeConfiguration _ytConfiguration = youtubeOptions.Value;
+
+    public async Task<string> FetchYouTubeRegistrationLink(Guid userIdentifier, CancellationToken cancellation)
+    {
+        string state = new RandomString();
+
+        await sender.Send(new RegisterChannelIntent.Command(PlatformIdentifier.YouTube, userIdentifier, state),
+            cancellation);
+
+        var authUrl = _ytConfiguration.AuthUrl;
+        var clientId = _ytConfiguration.ClientId;
+        var redirectUri = _ytConfiguration.CodeFlowRedirectUri;
+
+        var registrationLink =
+            $"{authUrl}?response_type=code&client_id={clientId}&redirect_uri={redirectUri}&scope=https://www.googleapis.com/auth/youtube.readonly&state={state}&nonce={state}";
+
+        return registrationLink;
+    }
 
     public async Task<string> FetchTwitchRegistrationLink(Guid userIdentifier, CancellationToken cancellation)
     {

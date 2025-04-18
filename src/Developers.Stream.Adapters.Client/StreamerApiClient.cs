@@ -39,4 +39,9 @@ public class StreamerApiClient(HttpClient client) :
     {
         throw new NotImplementedException();
     }
+
+    public Task<string> FetchYouTubeRegistrationLink(Guid userIdentifier, CancellationToken cancellation)
+    {
+        throw new NotImplementedException();
+    }
 }

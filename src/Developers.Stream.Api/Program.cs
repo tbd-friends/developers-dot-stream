@@ -3,6 +3,7 @@ using Developers.Stream.Api.Infrastructure;
 using Developers.Stream.Application.Commands;
 using Developers.Stream.Application.Queries;
 using Developers.Stream.Infrastructure.Twitch;
+using Developers.Stream.Infrastructure.YouTube;
 using Mediator;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,14 @@ builder
     .AddDatabase();
 
 builder.Services.Configure<TwitchConfiguration>(builder.Configuration.GetSection("twitch"));
+builder.Services.Configure<YouTubeConfiguration>(builder.Configuration.GetSection("youtube"));
 
 builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["twitch:authUrl"]!);
 });
+
+builder.Services.AddTransient<IYouTubeClient, YouTubeClient>();
 
 builder.Services
     .AddSingleton<TwitchChannelNameFromAuthenticationDelegate>(_ =>
@@ -46,7 +50,7 @@ app.MapGet("/link-account", async (ISender sender,
     string code,
     string state) =>
 {
-    await sender.Send(new LinkTwitchAccount.Command(code, state));
+    await sender.Send(new LinkAccount.Command(code, state));
 
     return Results.Redirect(configuration.Value.ProfileRedirect);
 });

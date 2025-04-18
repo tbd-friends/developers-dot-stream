@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Developers.Stream.Application\Developers.Stream.Application.csproj" />
+      <ProjectReference Include="..\Developers.Stream.Infrastructure.YouTube\Developers.Stream.Infrastructure.YouTube.csproj" />
       <ProjectReference Include="..\Developers.Stream.Infrastructure\Developers.Stream.Infrastructure.csproj" />
     </ItemGroup>
 
