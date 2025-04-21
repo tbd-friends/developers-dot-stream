@@ -89,10 +89,10 @@
 
     private async Task UpdateProfile()
     {
-        var state = await StateProvider.GetAuthenticationStateAsync();
+        var userState = await StateProvider.GetAuthenticationStateAsync();
 
         await ProfileService.UpdateProfile(
-            Guid.Parse(state.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value),
+            userState.GetUserId(),
             Input.Name,
             Input.Blurb,
             CancellationToken.None

@@ -5,11 +5,10 @@ using Developers.Stream.Application.Queries;
 using Developers.Stream.Infrastructure.Twitch;
 using Developers.Stream.Infrastructure.YouTube;
 using Mediator;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication
+    .CreateBuilder(args);
 
 builder
     .AddServiceDefaults()
