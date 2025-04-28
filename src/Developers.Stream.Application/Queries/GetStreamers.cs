@@ -14,7 +14,7 @@ public class GetStreamers
     {
         public async ValueTask<IEnumerable<StreamerDto>> Handle(Query query, CancellationToken cancellationToken)
         {
-            var streamers = await repository.ListAsync(new StreamersWithLinkedChannelsSpec(), cancellationToken);
+            var streamers = await repository.ListAsync(new ActiveStreamersWithDetailsSpec(), cancellationToken);
 
             return streamers;
         }

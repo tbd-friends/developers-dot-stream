@@ -4,9 +4,9 @@ using Developers.Stream.Shared_Kernel.DataTransfer;
 
 namespace Developers.Stream.Application.Specifications;
 
-public class StreamersWithLinkedChannelsSpec : Specification<Streamer, StreamerDto>
+public class ActiveStreamersWithDetailsSpec : Specification<Streamer, StreamerDto>
 {
-    public StreamersWithLinkedChannelsSpec()
+    public ActiveStreamersWithDetailsSpec()
     {
         Query
             .Where(s => s.Channels.Any(c => c.IsVerified))
@@ -15,6 +15,8 @@ public class StreamersWithLinkedChannelsSpec : Specification<Streamer, StreamerD
                 Id = s.Id,
                 Name = s.Name,
                 Blurb = s.Blurb,
+                Tags = from t in s.Tags
+                    select t.Label.Text,
                 Channels = from c in s.Channels
                     where c.IsVerified
                     select new ChannelDto

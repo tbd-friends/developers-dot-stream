@@ -37,9 +37,9 @@
         </div>
     </div>
     <div class="card-footer">
-        @* @foreach (var badge in Badges) *@
-        @* { *@
-        @*     <span class="badge rounded-pill text-bg-secondary px-2">@badge</span> *@
-        @* } *@
+        @foreach (var badge in Streamer.Tags)
+        {
+            <span class="badge rounded-pill text-bg-secondary m-1">@badge</span>
+        }
     </div>
 </div>
