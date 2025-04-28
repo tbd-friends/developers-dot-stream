@@ -2,11 +2,11 @@
 
 @using System.ComponentModel.DataAnnotations
 @using System.Diagnostics.CodeAnalysis
-@using System.Security.Claims
 @using Developers.Stream.Infrastructure.Contracts
 @using Developers.Stream.Shared_Kernel
 @using Developers.Stream.Web.Infrastructure
 @using Microsoft.AspNetCore.Components.Authorization
+@using Developers.Stream.Components.Controls
 
 @page "/account/profile"
 
@@ -26,6 +26,11 @@
                 <InputTextArea @bind-Value="Input.Blurb" id="Input.Blurb" class="form-control" aria-required="true"
                                placeholder="Enter some blurb to describe yourself here"></InputTextArea>
                 <label for="Input.Blurb" class="form-label">About Me</label>
+            </div>
+            <div class="form-floating mb-3">
+                <div>
+                    <DynamicTags Tags="Input.Tags"/>
+                </div>
             </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
         </EditForm>
@@ -67,6 +72,7 @@
 
     private StreamerProfile StreamerProfile { get; set; } = StreamerProfile.Default;
 
+
     protected override async Task OnInitializedAsync()
     {
         var userState = await StateProvider.GetAuthenticationStateAsync();
@@ -92,17 +98,22 @@
         var userState = await StateProvider.GetAuthenticationStateAsync();
 
         await ProfileService.UpdateProfile(
-            userState.GetUserId(),
-            Input.Name,
-            Input.Blurb,
-            CancellationToken.None
+            new StreamerUpdateModel(
+                userState.GetUserId(),
+                Input.Name,
+                Input.Blurb)
         );
+
+        await ProfileService.UpdateTags(
+            userState.GetUserId(),
+            Input.Tags);
     }
 
     private sealed class InputModel
     {
         [Required] public string Name { get; set; } = "";
         public string Blurb { get; set; } = null!;
+        public List<string> Tags { get; set; } = [];
     }
 
 }

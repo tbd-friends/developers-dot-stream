@@ -7,7 +7,10 @@ namespace Developers.Stream.Application.Commands;
 
 public class UpdateUserProfile
 {
-    public record Command(Guid UserIdentifier, string Name, string Blurb) : ICommand;
+    public record Command(
+        Guid UserIdentifier,
+        string Name,
+        string Blurb) : ICommand;
 
     public class Handler(IRepository<Streamer> repository) : ICommandHandler<Command>
     {

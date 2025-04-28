@@ -18,7 +18,8 @@ public class StreamerProfileService(
     private readonly TwitchConfiguration _configuration = twitchOptions.Value;
     private readonly YouTubeConfiguration _ytConfiguration = youtubeOptions.Value;
 
-    public async Task<string> FetchYouTubeRegistrationLink(Guid userIdentifier, CancellationToken cancellation)
+    public async Task<string> FetchYouTubeRegistrationLink(Guid userIdentifier,
+        CancellationToken cancellation = default)
     {
         string state = new RandomString();
 
@@ -35,7 +36,7 @@ public class StreamerProfileService(
         return registrationLink;
     }
 
-    public async Task<string> FetchTwitchRegistrationLink(Guid userIdentifier, CancellationToken cancellation)
+    public async Task<string> FetchTwitchRegistrationLink(Guid userIdentifier, CancellationToken cancellation = default)
     {
         string state = new RandomString();
 
@@ -52,7 +53,7 @@ public class StreamerProfileService(
         return registrationLink;
     }
 
-    public async Task<StreamerProfile> FetchProfile(Guid userIdentifier, CancellationToken cancellationToken)
+    public async Task<StreamerProfile> FetchProfile(Guid userIdentifier, CancellationToken cancellationToken = default)
     {
         var profile = await sender.Send(new GetStreamerProfile.Query(userIdentifier), cancellationToken);
 
@@ -70,8 +71,19 @@ public class StreamerProfileService(
         );
     }
 
-    public async Task UpdateProfile(Guid userIdentifier, string name, string blurb, CancellationToken cancellationToken)
+    public async Task UpdateProfile(StreamerUpdateModel update, CancellationToken cancellationToken = default)
     {
-        await sender.Send(new UpdateUserProfile.Command(userIdentifier, name, blurb), cancellationToken);
+        await sender.Send(new UpdateUserProfile.Command(
+                update.Identifier,
+                update.Name,
+                update.Blurb),
+            cancellationToken);
+    }
+
+    public async Task UpdateTags(Guid identifier, IEnumerable<string> tags, CancellationToken cancellationToken = default)
+    {
+        await sender.Send(new UpdateTags.Command(
+            identifier,
+            tags), cancellationToken);
     }
 }

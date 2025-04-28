@@ -49,6 +49,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Infrastructure.YouTube", "src\Developers.Stream.Infrastructure.YouTube\Developers.Stream.Infrastructure.YouTube.csproj", "{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{17D83794-93CF-4A48-92A0-7FC6B085A0AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Application.Tests", "tests\Developers.Stream.Application.Tests\Developers.Stream.Application.Tests.csproj", "{963A3173-2213-446F-BD2A-792D948E8515}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +127,10 @@ Global
 		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{963A3173-2213-446F-BD2A-792D948E8515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{963A3173-2213-446F-BD2A-792D948E8515}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{963A3173-2213-446F-BD2A-792D948E8515}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{963A3173-2213-446F-BD2A-792D948E8515}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -142,5 +150,7 @@ Global
 		{07F41C7C-4F0E-44D4-922C-CCDAD436AA16} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
 		{563DA100-DBA4-4F17-8EAE-3FEA1BA401E5} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
 		{7D8A943D-3C4F-4EA2-A2EF-16737B5B7B5F} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
+		{17D83794-93CF-4A48-92A0-7FC6B085A0AB} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
+		{963A3173-2213-446F-BD2A-792D948E8515} = {17D83794-93CF-4A48-92A0-7FC6B085A0AB}
 	EndGlobalSection
 EndGlobal

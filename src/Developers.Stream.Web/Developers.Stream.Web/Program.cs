@@ -21,6 +21,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents()
     .AddAuthenticationStateSerialization();
 
+builder.Services.AddAntDesign();
+
 builder.Services.AddMediator();
 
 builder.Services.Configure<TwitchConfiguration>(builder.Configuration.GetSection("twitch"));

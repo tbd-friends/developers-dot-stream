@@ -29,9 +29,14 @@ public class StreamerApiClient(HttpClient client) :
         throw new NotImplementedException();
     }
 
-    public Task UpdateProfile(Guid userIdentifier, string name, string blurb, CancellationToken cancellationToken)
+    public Task UpdateProfile(StreamerUpdateModel update, CancellationToken cancellationToken)
     {
         // Forwarding auth to provide user identifier on othe
+        throw new NotImplementedException();
+    }
+
+    public Task UpdateTags(Guid identifier, IEnumerable<string> tags, CancellationToken cancellationToken = default)
+    {
         throw new NotImplementedException();
     }
 
