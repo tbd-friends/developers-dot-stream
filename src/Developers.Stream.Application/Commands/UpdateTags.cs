@@ -16,15 +16,25 @@ public class UpdateTags
     {
         public async ValueTask<Unit> Handle(Command command, CancellationToken cancellationToken)
         {
-            var labelsToAdd = command.Tags.Select(t => new Label { Text = t }).ToList();
+            var existingLabels =
+                (await labelRepository.ListAsync(new LabelIdsForTagsSpec(command.Tags), cancellationToken)).ToList();
 
-            await labelRepository.AddRangeAsync(labelsToAdd, cancellationToken);
+            var labelsToAdd = command.Tags
+                .Where(t => existingLabels.All(l => l.Text != t))
+                .Select(t => new Label { Text = t }).ToList();
+
+            if (labelsToAdd.Any())
+            {
+                await labelRepository.AddRangeAsync(labelsToAdd, cancellationToken);
+            }
+
+            var labels = labelsToAdd.Union(existingLabels).ToList();
 
             var streamer =
                 await streamerRepository.FirstOrDefaultAsync(
                     new StreamerByIdentifierWithDetailsSpec(command.UserIdentifier), cancellationToken);
 
-            foreach (var label in labelsToAdd)
+            foreach (var label in labels)
             {
                 await tagRepository.AddAsync(new Tag
                 {

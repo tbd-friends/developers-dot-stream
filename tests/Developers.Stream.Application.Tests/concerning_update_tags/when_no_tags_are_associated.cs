@@ -1,10 +1,4 @@
-﻿using Developers.Stream.Application.Commands;
-using Developers.Stream.Application.Specifications;
-using Developers.Stream.Domain;
-using Developers.Stream.Infrastructure.Contracts;
-using NSubstitute;
-
-namespace Developers.Stream.Application.Tests.concerning_update_tags;
+﻿namespace Developers.Stream.Application.Tests.concerning_update_tags;
 
 public class when_no_tags_are_associated : IAsyncLifetime
 {
@@ -39,6 +33,10 @@ public class when_no_tags_are_associated : IAsyncLifetime
 
     public when_no_tags_are_associated()
     {
+        _labelRepository
+            .ListAsync(Arg.Any<LabelIdsForTagsSpec>(), Arg.Any<CancellationToken>())
+            .Returns([]);
+
         _labelRepository
             .When(r => r.AddRangeAsync(Arg.Is<IEnumerable<Label>>(p => p.All(l => l.Text == _tag))))
             .Do(info => info.Arg<IEnumerable<Label>>().First().Id = _newLabelId);
