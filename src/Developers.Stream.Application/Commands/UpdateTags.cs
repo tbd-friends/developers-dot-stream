@@ -16,6 +16,24 @@ public class UpdateTags
     {
         public async ValueTask<Unit> Handle(Command command, CancellationToken cancellationToken)
         {
+            var labels = await FetchLabelsToAssociate(command, cancellationToken);
+
+            var streamer =
+                await streamerRepository.FirstOrDefaultAsync(
+                    new StreamerByIdentifierWithDetailsSpec(command.UserIdentifier), cancellationToken);
+
+            ArgumentNullException.ThrowIfNull(streamer);
+
+            await RemoveTagsForUnusedLabels(streamer, labels, cancellationToken);
+
+            await AddNewTags(streamer, labels, cancellationToken);
+
+            return Unit.Value;
+        }
+
+        private async ValueTask<List<Label>> FetchLabelsToAssociate(Command command,
+            CancellationToken cancellationToken)
+        {
             var existingLabels =
                 (await labelRepository.ListAsync(new LabelIdsForTagsSpec(command.Tags), cancellationToken)).ToList();
 
@@ -29,21 +47,14 @@ public class UpdateTags
             }
 
             var labels = labelsToAdd.Union(existingLabels).ToList();
+            return labels;
+        }
 
-            var streamer =
-                await streamerRepository.FirstOrDefaultAsync(
-                    new StreamerByIdentifierWithDetailsSpec(command.UserIdentifier), cancellationToken);
-
-            var tagsToRemove = streamer.Tags.Where(t => labels.All(l => l.Id != t.Id)).ToList();
-
-            if (tagsToRemove.Any())
-            {
-                foreach (var tag in tagsToRemove)
-                {
-                    await tagRepository.DeleteAsync(tag, cancellationToken);
-                }
-            }
-
+        private async ValueTask AddNewTags(
+            Streamer streamer,
+            List<Label> labels,
+            CancellationToken cancellationToken)
+        {
             var tagsToAdd = labels.Where(l => streamer.Tags.All(t => t.LabelId != l.Id)).ToList();
 
             foreach (var label in tagsToAdd)
@@ -54,8 +65,22 @@ public class UpdateTags
                     LabelId = label.Id
                 }, cancellationToken);
             }
+        }
 
-            return Unit.Value;
+        private async ValueTask RemoveTagsForUnusedLabels(
+            Streamer streamer,
+            List<Label> labels,
+            CancellationToken cancellationToken)
+        {
+            var tagsToRemove = streamer.Tags.Where(t => labels.All(l => l.Id != t.Id)).ToList();
+
+            if (tagsToRemove.Any())
+            {
+                foreach (var tag in tagsToRemove)
+                {
+                    await tagRepository.DeleteAsync(tag, cancellationToken);
+                }
+            }
         }
     }
 }
