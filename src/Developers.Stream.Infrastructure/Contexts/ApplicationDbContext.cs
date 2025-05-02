@@ -10,4 +10,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Platform> Platforms => Set<Platform>();
     public DbSet<Streamer> Streamers => Set<Streamer>();
     public DbSet<Tag> Tags => Set<Tag>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
