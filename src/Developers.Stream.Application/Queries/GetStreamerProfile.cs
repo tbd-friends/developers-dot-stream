@@ -23,7 +23,7 @@ public class GetStreamerProfile
             {
                 return Result.NotFound();
             }
-
+            
             return Result.Success(new Profile(
                 streamer.Identifier,
                 streamer.Name,

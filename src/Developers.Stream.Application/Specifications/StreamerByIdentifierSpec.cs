@@ -19,6 +19,7 @@ public sealed class StreamerByIdentifierWithDetailsSpec : Specification<Streamer
             .Include(s => s.Channels)
             .ThenInclude(c => c.Platform)
             .Include(s => s.Tags)
+            .ThenInclude(t => t.Label)
             .Where(s => s.Identifier == identifier)
             .AsNoTracking();
     }
