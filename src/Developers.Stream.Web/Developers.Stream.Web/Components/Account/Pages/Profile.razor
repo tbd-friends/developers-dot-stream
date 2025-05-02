@@ -81,6 +81,7 @@
 
         Input.Name = StreamerProfile.Name;
         Input.Blurb = StreamerProfile.Blurb;
+        Input.Tags = new(StreamerProfile.Tags);
     }
 
     private async Task RegisterAccount(PlatformIdentifier identifier)
