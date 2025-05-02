@@ -12,14 +12,13 @@ public class when_tag_is_no_longer_associated : IAsyncLifetime
     private readonly int _streamerId = 9009;
     private readonly int _existingLabelId = 6501;
     private readonly int _existingTagId = 10245;
-    private readonly string _tag = "Tag";
 
     [Fact]
     public void tag_is_removed()
     {
         _tagRepository
             .Received()
-            .DeleteAsync(Arg.Is<Tag>(t => t.LabelId == _existingLabelId), Arg.Any<CancellationToken>());
+            .DeleteRangeAsync(Arg.Any<TagsByIdSpec>(), Arg.Any<CancellationToken>());
     }
 
     public when_tag_is_no_longer_associated()

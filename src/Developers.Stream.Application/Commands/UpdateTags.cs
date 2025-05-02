@@ -72,14 +72,15 @@ public class UpdateTags
             List<Label> labels,
             CancellationToken cancellationToken)
         {
-            var tagsToRemove = streamer.Tags.Where(tag => labels.All(label => label.Id != tag.LabelId)).ToList();
+            var tagsToRemove = streamer
+                .Tags
+                .Where(tag => labels.All(label => label.Id != tag.LabelId))
+                .Select(t => t.Id)
+                .ToList();
 
             if (tagsToRemove.Any())
             {
-                foreach (var tag in tagsToRemove)
-                {
-                    await tagRepository.DeleteAsync(tag, cancellationToken);
-                }
+                await tagRepository.DeleteRangeAsync(new TagsByIdSpec(tagsToRemove), cancellationToken);
             }
         }
     }
