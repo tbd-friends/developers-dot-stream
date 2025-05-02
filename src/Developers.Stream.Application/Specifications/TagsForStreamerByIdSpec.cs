@@ -3,9 +3,9 @@ using Developers.Stream.Domain;
 
 namespace Developers.Stream.Application.Specifications;
 
-public sealed class TagsForStreamerById : Specification<Tag>
+public sealed class TagsForStreamerByIdSpec : Specification<Tag>
 {
-    public TagsForStreamerById(int streamerId)
+    public TagsForStreamerByIdSpec(int streamerId)
     {
         Query
             .Include(t => t.Label)

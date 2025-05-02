@@ -34,7 +34,9 @@ public class UpdateTags
                 await streamerRepository.FirstOrDefaultAsync(
                     new StreamerByIdentifierWithDetailsSpec(command.UserIdentifier), cancellationToken);
 
-            foreach (var label in labels)
+            var tagsToAdd = labels.Where(l => streamer.Tags.All(t => t.LabelId != l.Id)).ToList();
+
+            foreach (var label in tagsToAdd)
             {
                 await tagRepository.AddAsync(new Tag
                 {
