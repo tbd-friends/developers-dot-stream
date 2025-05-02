@@ -26,7 +26,7 @@ public class when_tag_is_no_longer_associated : IAsyncLifetime
     {
         _labelRepository
             .ListAsync(Arg.Any<LabelIdsForTagsSpec>(), Arg.Any<CancellationToken>())
-            .Returns([new Label { Id = _existingLabelId, Text = _tag }]);
+            .Returns([]);
 
         _streamerRepository
             .FirstOrDefaultAsync(Arg.Any<StreamerByIdentifierWithDetailsSpec>(), CancellationToken.None)
@@ -36,7 +36,12 @@ public class when_tag_is_no_longer_associated : IAsyncLifetime
                 Identifier = _streamerIdentifier,
                 Tags =
                 [
-                    new Tag { Id = _existingTagId, LabelId = _existingLabelId, StreamerId = _streamerId }
+                    new Tag
+                    {
+                        Id = _existingTagId,
+                        LabelId = _existingLabelId,
+                        StreamerId = _streamerId
+                    }
                 ]
             });
 

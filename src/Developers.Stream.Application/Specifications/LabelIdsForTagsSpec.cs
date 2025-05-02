@@ -8,6 +8,7 @@ public sealed class LabelIdsForTagsSpec : Specification<Label>
     public LabelIdsForTagsSpec(IEnumerable<string> tags)
     {
         Query
-            .Where(l => tags.Contains(l.Text));
+            .Where(l => tags.Contains(l.Text))
+            .AsNoTracking();
     }
 }

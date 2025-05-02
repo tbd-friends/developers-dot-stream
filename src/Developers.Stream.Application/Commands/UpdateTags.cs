@@ -72,7 +72,7 @@ public class UpdateTags
             List<Label> labels,
             CancellationToken cancellationToken)
         {
-            var tagsToRemove = streamer.Tags.Where(t => labels.All(l => l.Id != t.Id)).ToList();
+            var tagsToRemove = streamer.Tags.Where(tag => labels.All(label => label.Id != tag.LabelId)).ToList();
 
             if (tagsToRemove.Any())
             {
