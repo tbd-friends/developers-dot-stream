@@ -34,6 +34,16 @@ public class UpdateTags
                 await streamerRepository.FirstOrDefaultAsync(
                     new StreamerByIdentifierWithDetailsSpec(command.UserIdentifier), cancellationToken);
 
+            var tagsToRemove = streamer.Tags.Where(t => labels.All(l => l.Id != t.Id)).ToList();
+
+            if (tagsToRemove.Any())
+            {
+                foreach (var tag in tagsToRemove)
+                {
+                    await tagRepository.DeleteAsync(tag, cancellationToken);
+                }
+            }
+
             var tagsToAdd = labels.Where(l => streamer.Tags.All(t => t.LabelId != l.Id)).ToList();
 
             foreach (var label in tagsToAdd)
