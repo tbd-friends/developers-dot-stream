@@ -15,12 +15,17 @@ public class StreamerProfileService(
     ISender sender,
     IOptions<KickConfiguration> kickOptions,
     IOptions<TwitchConfiguration> twitchOptions,
-    IOptions<YouTubeConfiguration> youtubeOptions) : IStreamerProfileService {
+    IOptions<YouTubeConfiguration> youtubeOptions) : IStreamerProfileService
+{
 
     private readonly KickConfiguration _kickConfiguration = kickOptions.Value;
     private readonly TwitchConfiguration _configuration = twitchOptions.Value;
     private readonly YouTubeConfiguration _ytConfiguration = youtubeOptions.Value;
 
+    public async Task<string> GenerateApiKey(Guid identifier, CancellationToken cancellationToken = default)
+    {
+        return await sender.Send(new RegisterApiKey.Command(identifier), cancellationToken);
+    }
     public async Task<string> FetchKickRegistrationLink(Guid userIdentifier, CancellationToken cancellationToken = default)
     {
         string state = new RandomString();

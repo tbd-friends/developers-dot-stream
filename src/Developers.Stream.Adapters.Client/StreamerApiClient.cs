@@ -7,7 +7,8 @@ namespace Developers.Stream.Adapters.Client;
 
 public class StreamerApiClient(HttpClient client) :
     IStreamerQuery,
-    IStreamerProfileService {
+    IStreamerProfileService
+{
     public async Task<IEnumerable<StreamerDto>> GetStreamers(CancellationToken cancellationToken)
     {
         var request = await client.GetAsync("/streamers", cancellationToken);
@@ -38,6 +39,11 @@ public class StreamerApiClient(HttpClient client) :
     {
         throw new NotImplementedException();
     }
+    public Task<string> GenerateApiKey(Guid identifier, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
+    
     public Task<string> FetchKickRegistrationLink(Guid userIdentifier, CancellationToken cancellationToken = default) => throw new NotImplementedException();
 
     public async Task<string> FetchTwitchRegistrationLink(Guid userIdentifier, CancellationToken cancellationToken = default)
