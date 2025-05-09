@@ -34,18 +34,19 @@
             </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
         </EditForm>
-        @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Kick))
-        {
-            <button class="w-100 btn btn-lg btn-primary"
-                    @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Kick))">Link
-                Kick
-                Account
-            </button>
-        }
-        else
-        {
-            <div>Kick Is Linked</div>
-        }
+        @* id.kick.com is unavailable for testing *@
+        @* @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Kick)) *@
+        @* { *@
+        @*     <button class="w-100 btn btn-lg btn-primary" *@
+        @*             @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Kick))">Link *@
+        @*         Kick *@
+        @*         Account *@
+        @*     </button> *@
+        @* } *@
+        @* else *@
+        @* { *@
+        @*     <div>Kick Is Linked</div> *@
+        @* } *@
         @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Twitch))
         {
             <button class="w-100 btn btn-lg btn-primary"
