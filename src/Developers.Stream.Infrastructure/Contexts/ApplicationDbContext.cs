@@ -5,6 +5,7 @@ namespace Developers.Stream.Infrastructure.Contexts;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : DbContext(options)
 {
+    public DbSet<ApiKey> ApiKeys => Set<ApiKey>();
     public DbSet<Channel> Channels => Set<Channel>();
     public DbSet<Label> Labels => Set<Label>();
     public DbSet<Platform> Platforms => Set<Platform>();
