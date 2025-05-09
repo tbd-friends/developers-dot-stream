@@ -14,63 +14,76 @@
 
 <AuthorizeView Context="authContext">
     <Authorized>
-        <EditForm Model="Input" OnValidSubmit="UpdateProfile" FormName="userProfileDetails">
-            <ValidationSummary class="text-danger" role="alert"/>
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Name" id="Input.Name" class="form-control" autocomplete="off"
-                           aria-required="true" placeholder="MyStreamerName"/>
-                <label for="Input.Name" class="form-label">Name</label>
-                <ValidationMessage For="() => Input.Name" class="text-danger"/>
-            </div>
-            <div class="form-floating mb-3">
-                <InputTextArea @bind-Value="Input.Blurb" id="Input.Blurb" class="form-control" aria-required="true"
-                               placeholder="Enter some blurb to describe yourself here"></InputTextArea>
-                <label for="Input.Blurb" class="form-label">About Me</label>
-            </div>
-            <div class="form-floating mb-3">
-                <div>
-                    <DynamicTags Tags="Input.Tags"/>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <EditForm Model="Input" OnValidSubmit="UpdateProfile" FormName="userProfileDetails">
+                        <ValidationSummary class="text-danger" role="alert"/>
+                        <div class="form-floating mb-3">
+                            <InputText @bind-Value="Input.Name" id="Input.Name" class="form-control" autocomplete="off"
+                                       aria-required="true" placeholder="MyStreamerName"/>
+                            <label for="Input.Name" class="form-label">Name</label>
+                            <ValidationMessage For="() => Input.Name" class="text-danger"/>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <InputTextArea @bind-Value="Input.Blurb" id="Input.Blurb" class="form-control"
+                                           aria-required="true"
+                                           placeholder="Enter some blurb to describe yourself here"></InputTextArea>
+                            <label for="Input.Blurb" class="form-label">About Me</label>
+                        </div>
+                        <div>
+                            <DynamicTags Tags="Input.Tags"/>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
+                        </div>
+                    </EditForm>
+                </div>
+                <div class="col">
+                    @* id.kick.com is unavailable for testing *@
+                    @* @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Kick)) *@
+                    @* { *@
+                    @*     <button class="w-100 btn btn-lg btn-primary" *@
+                    @*             @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Kick))">Link *@
+                    @*         Kick *@
+                    @*         Account *@
+                    @*     </button> *@
+                    @* } *@
+                    @* else *@
+                    @* { *@
+                    @*     <div>Kick Is Linked</div> *@
+                    @* } *@
+                    @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Twitch))
+                    {
+                        <button class="w-100 btn btn-lg btn-primary"
+                                @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Twitch))">Link
+                            Twitch
+                            Account
+                        </button>
+                    }
+                    else
+                    {
+                        <div>Twitch Is Linked</div>
+                    }
+                    @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.YouTube))
+                    {
+                        <button class="w-100 btn btn-lg btn-primary"
+                                @onclick="@(async () => await RegisterAccount(PlatformIdentifier.YouTube))">Link
+                            YouTube
+                            Account
+                        </button>
+                    }
+                    else
+                    {
+                        <div>YouTube Is Linked</div>
+                    }
+                    <div class="mt-5">
+                        <StreamerApiKey/>
+                    </div>
                 </div>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
-        </EditForm>
-        @* id.kick.com is unavailable for testing *@
-        @* @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Kick)) *@
-        @* { *@
-        @*     <button class="w-100 btn btn-lg btn-primary" *@
-        @*             @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Kick))">Link *@
-        @*         Kick *@
-        @*         Account *@
-        @*     </button> *@
-        @* } *@
-        @* else *@
-        @* { *@
-        @*     <div>Kick Is Linked</div> *@
-        @* } *@
-        @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Twitch))
-        {
-            <button class="w-100 btn btn-lg btn-primary"
-                    @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Twitch))">Link
-                Twitch
-                Account
-            </button>
-        }
-        else
-        {
-            <div>Twitch Is Linked</div>
-        }
-        @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.YouTube))
-        {
-            <button class="w-100 btn btn-lg btn-primary"
-                    @onclick="@(async () => await RegisterAccount(PlatformIdentifier.YouTube))">Link
-                YouTube
-                Account
-            </button>
-        }
-        else
-        {
-            <div>YouTube Is Linked</div>
-        }
+        </div>
 
     </Authorized>
 </AuthorizeView>
@@ -125,7 +138,8 @@
         Input.Tags);
     }
 
-    private sealed class InputModel {
+    private sealed class InputModel
+    {
         [Required] public string Name { get; set; } = "";
         public string Blurb { get; set; } = null!;
         public List<string> Tags { get; set; } = [];
