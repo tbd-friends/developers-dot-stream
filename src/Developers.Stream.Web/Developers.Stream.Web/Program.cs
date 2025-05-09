@@ -1,6 +1,7 @@
 using Developers.Stream.Adapters.Server;
 using Developers.Stream.Infrastructure.Auth;
 using Developers.Stream.Infrastructure.Contracts;
+using Developers.Stream.Infrastructure.Kick;
 using Developers.Stream.Infrastructure.Twitch;
 using Developers.Stream.Infrastructure.YouTube;
 using Developers.Stream.Web.Components;
@@ -25,11 +26,15 @@ builder.Services.AddAntDesign();
 
 builder.Services.AddMediator();
 
+builder.Services.Configure<KickConfiguration>(builder.Configuration.GetSection("kick"));
 builder.Services.Configure<TwitchConfiguration>(builder.Configuration.GetSection("twitch"));
 builder.Services.Configure<YouTubeConfiguration>(builder.Configuration.GetSection("youtube"));
 
-builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client =>
-{
+builder.Services.AddHttpClient<IKickClient, KickClient>(client => {
+    client.BaseAddress = new Uri(builder.Configuration["kick:authUrl"]!);
+});
+
+builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client => {
     client.BaseAddress = new Uri(builder.Configuration["twitch:authUrl"]!);
 });
 
@@ -37,6 +42,10 @@ builder.Services.AddTransient<IYouTubeClient, YouTubeClient>();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 builder.Services.AddTransient<IStreamerProfileService, StreamerProfileService>();
+
+builder.Services
+    .AddSingleton<KickChannelNameFromAuthenticationDelegate>(_ =>
+        KickDefaults.FetchChannelFromAuthenticationResponse);
 
 builder.Services
     .AddSingleton<TwitchChannelNameFromAuthenticationDelegate>(_ =>

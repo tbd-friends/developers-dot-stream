@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Developers.Stream.Application\Developers.Stream.Application.csproj" />
+      <ProjectReference Include="..\Developers.Stream.Infrastructure.Kick\Developers.Stream.Infrastructure.Kick.csproj" />
       <ProjectReference Include="..\Developers.Stream.Infrastructure.Twitch\Developers.Stream.Infrastructure.Twitch.csproj" />
       <ProjectReference Include="..\Developers.Stream.ServiceDefaults\Developers.Stream.ServiceDefaults.csproj" />
     </ItemGroup>

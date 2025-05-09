@@ -2,8 +2,7 @@
 
 namespace Developers.Stream.Shared_Kernel;
 
-public class PlatformIdentifier
-{
+public class PlatformIdentifier {
     public static PlatformIdentifier Twitch = new("Twitch", "https://twitch.tv/");
     public static PlatformIdentifier YouTube = new("YouTube", "https://www.youtube.com/");
     public static PlatformIdentifier Kick = new("Kick", "https://www.kick.tv/");
@@ -11,7 +10,7 @@ public class PlatformIdentifier
     public string Identifier { get; }
     public string Address { get; }
 
-    public static readonly PlatformIdentifier?[] Platforms = typeof(PlatformIdentifier)
+    private static readonly PlatformIdentifier?[] Platforms = typeof(PlatformIdentifier)
         .GetFields(BindingFlags.Public | BindingFlags.Static)
         .Where(f => f.FieldType == typeof(PlatformIdentifier))
         .Select(f => f.GetValue(null) as PlatformIdentifier)

@@ -46,7 +46,6 @@ public class LinkAccount
 
             await repository.UpdateAsync(channel, cancellationToken);
 
-
             return Unit.Value;
         }
     }

@@ -34,6 +34,18 @@
             </div>
             <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
         </EditForm>
+        @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Kick))
+        {
+            <button class="w-100 btn btn-lg btn-primary"
+                    @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Kick))">Link
+                Kick
+                Account
+            </button>
+        }
+        else
+        {
+            <div>Kick Is Linked</div>
+        }
         @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Twitch))
         {
             <button class="w-100 btn btn-lg btn-primary"
@@ -89,7 +101,9 @@
         var userState = await StateProvider.GetAuthenticationStateAsync();
 
         string link =
-            identifier == PlatformIdentifier.Twitch ? await ProfileService.FetchTwitchRegistrationLink(userState.GetUserId(), CancellationToken.None) : await ProfileService.FetchYouTubeRegistrationLink(userState.GetUserId(), CancellationToken.None);
+            identifier == PlatformIdentifier.Twitch ? await ProfileService.FetchTwitchRegistrationLink(userState.GetUserId(), CancellationToken.None) :
+            identifier == PlatformIdentifier.YouTube ? await ProfileService.FetchYouTubeRegistrationLink(userState.GetUserId(), CancellationToken.None) :
+            await ProfileService.FetchKickRegistrationLink(userState.GetUserId(), CancellationToken.None);
 
         Navigation.NavigateTo(link);
     }
@@ -99,19 +113,18 @@
         var userState = await StateProvider.GetAuthenticationStateAsync();
 
         await ProfileService.UpdateProfile(
-            new StreamerUpdateModel(
-                userState.GetUserId(),
-                Input.Name,
-                Input.Blurb)
+        new StreamerUpdateModel(
+        userState.GetUserId(),
+        Input.Name,
+        Input.Blurb)
         );
 
         await ProfileService.UpdateTags(
-            userState.GetUserId(),
-            Input.Tags);
+        userState.GetUserId(),
+        Input.Tags);
     }
 
-    private sealed class InputModel
-    {
+    private sealed class InputModel {
         [Required] public string Name { get; set; } = "";
         public string Blurb { get; set; } = null!;
         public List<string> Tags { get; set; } = [];
