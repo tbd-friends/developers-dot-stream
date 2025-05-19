@@ -24,14 +24,7 @@ public class InitializeDbContextWorker(
 
         var strategy = dbContext.Database.CreateExecutionStrategy();
 
-        await strategy.ExecuteAsync(async () =>
-        {
-            logger.LogInformation("Applying migrations");
-
-            await dbContext.Database.MigrateAsync(cancellationToken);
-
-            logger.LogInformation("Migrations applied");
-        });
+        await strategy.ExecuteAsync(dbContext.Database.MigrateAsync, cancellationToken);
     }
 
     private async Task RunAuthMigration(CancellationToken cancellationToken)
@@ -40,13 +33,6 @@ public class InitializeDbContextWorker(
 
         var strategy = dbContext.Database.CreateExecutionStrategy();
 
-        await strategy.ExecuteAsync(async () =>
-        {
-            logger.LogInformation("Applying migrations");
-
-            await dbContext.Database.MigrateAsync(cancellationToken);
-
-            logger.LogInformation("Migrations applied");
-        });
+        await strategy.ExecuteAsync(dbContext.Database.MigrateAsync, cancellationToken);
     }
 }
