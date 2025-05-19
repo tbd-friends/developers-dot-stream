@@ -22,10 +22,16 @@ var api = builder.AddProject<Projects.Developers_Stream_Api>("api")
     .WithReference(authpostgresdb)
     .WaitForCompletion(migrationService);
 
-builder.AddProject<Projects.Developers_Stream_Web>("web")
+var web = builder.AddProject<Projects.Developers_Stream_Web>("web")
     .WithReference(postgresdb)
     .WithReference(authpostgresdb)
     .WithReference(api)
     .WaitForCompletion(migrationService);
 
-builder.Build().Run();
+builder.AddProject<Projects.Developers_Stream_Streamer_Api>("streamerApi")
+    .WithReference(postgresdb)
+    .WaitFor(api)
+    .WaitFor(web)
+    .WaitForCompletion(migrationService);
+
+await builder.Build().RunAsync();

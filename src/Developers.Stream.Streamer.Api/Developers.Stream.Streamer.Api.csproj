@@ -7,7 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Developers.Stream.Application\Developers.Stream.Application.csproj" />
+      <ProjectReference Include="..\Developers.Stream.Domain\Developers.Stream.Domain.csproj" />
+      <ProjectReference Include="..\Developers.Stream.Infrastructure\Developers.Stream.Infrastructure.csproj" />
+      <ProjectReference Include="..\Developers.Stream.ServiceDefaults\Developers.Stream.ServiceDefaults.csproj" />
     </ItemGroup>
 
 </Project>

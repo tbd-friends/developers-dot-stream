@@ -7,9 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Ardalis.Specification" Version="9.0.1" />
-      <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="9.0.1" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+      <PackageReference Include="Ardalis.Specification" Version="9.1.0" />
+      <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="9.1.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
     </ItemGroup>
 
     <ItemGroup>
