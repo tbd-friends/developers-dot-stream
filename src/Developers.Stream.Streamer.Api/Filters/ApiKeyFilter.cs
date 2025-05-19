@@ -20,8 +20,6 @@ public class ApiKeyFilter(IRepository<ApiKey> repository) : IEndpointFilter
             return null;
         }
 
-        await next(context);
-
-        return null;
+        return await next(context);
     }
 }

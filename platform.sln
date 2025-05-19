@@ -59,6 +59,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StreamerApi", "StreamerApi"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Streamer.Api", "src\Developers.Stream.Streamer.Api\Developers.Stream.Streamer.Api.csproj", "{342B2D5B-B32A-4FB7-800A-1AFD1E66CF3E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Developers.Stream.Streamer.Application", "src\Developers.Stream.Streamer.Application\Developers.Stream.Streamer.Application.csproj", "{216D70B5-5F68-4114-87BB-1097C06BEBC3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +147,10 @@ Global
 		{342B2D5B-B32A-4FB7-800A-1AFD1E66CF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{342B2D5B-B32A-4FB7-800A-1AFD1E66CF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{342B2D5B-B32A-4FB7-800A-1AFD1E66CF3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{216D70B5-5F68-4114-87BB-1097C06BEBC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216D70B5-5F68-4114-87BB-1097C06BEBC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{216D70B5-5F68-4114-87BB-1097C06BEBC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216D70B5-5F68-4114-87BB-1097C06BEBC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,5 +174,6 @@ Global
 		{963A3173-2213-446F-BD2A-792D948E8515} = {17D83794-93CF-4A48-92A0-7FC6B085A0AB}
 		{AE2C3631-98B3-4579-979F-C4E2CE68780E} = {A21F6F89-5DE4-431B-BAFD-5FEF45D3C821}
 		{342B2D5B-B32A-4FB7-800A-1AFD1E66CF3E} = {BDFD3F45-5321-47AB-8579-B847D7B179C5}
+		{216D70B5-5F68-4114-87BB-1097C06BEBC3} = {BDFD3F45-5321-47AB-8579-B847D7B179C5}
 	EndGlobalSection
 EndGlobal
