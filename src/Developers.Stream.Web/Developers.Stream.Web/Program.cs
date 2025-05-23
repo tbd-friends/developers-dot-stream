@@ -8,6 +8,7 @@ using Developers.Stream.Web.Components;
 using Developers.Stream.Web.Components.Account;
 using Developers.Stream.Web.Configuration;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents()
     .AddAuthenticationStateSerialization();
+
+builder.Services.AddFeatureManagement();
 
 builder.Services.AddAntDesign();
 
