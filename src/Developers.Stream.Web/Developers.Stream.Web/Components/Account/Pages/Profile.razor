@@ -1,0 +1,148 @@
+﻿@rendermode InteractiveServer
+
+@using System.ComponentModel.DataAnnotations
+@using System.Diagnostics.CodeAnalysis
+@using Developers.Stream.Infrastructure.Contracts
+@using Developers.Stream.Shared_Kernel
+@using Developers.Stream.Web.Infrastructure
+@using Microsoft.AspNetCore.Components.Authorization
+@using Developers.Stream.Components.Controls
+
+@page "/account/profile"
+
+<h3>Profile</h3>
+
+<AuthorizeView Context="authContext">
+    <Authorized>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <EditForm Model="Input" OnValidSubmit="UpdateProfile" FormName="userProfileDetails">
+                        <ValidationSummary class="text-danger" role="alert"/>
+                        <div class="form-floating mb-3">
+                            <InputText @bind-Value="Input.Name" id="Input.Name" class="form-control" autocomplete="off"
+                                       aria-required="true" placeholder="MyStreamerName"/>
+                            <label for="Input.Name" class="form-label">Name</label>
+                            <ValidationMessage For="() => Input.Name" class="text-danger"/>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <InputTextArea @bind-Value="Input.Blurb" id="Input.Blurb" class="form-control"
+                                           aria-required="true"
+                                           placeholder="Enter some blurb to describe yourself here"></InputTextArea>
+                            <label for="Input.Blurb" class="form-label">About Me</label>
+                        </div>
+                        <div>
+                            <DynamicTags Tags="Input.Tags"/>
+                        </div>
+
+                        <div class="form-floating mb-3">
+                            <button type="submit" class="w-100 btn btn-lg btn-primary">Update</button>
+                        </div>
+                    </EditForm>
+                </div>
+                <div class="col">
+                    @* id.kick.com is unavailable for testing *@
+                    @* @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Kick)) *@
+                    @* { *@
+                    @*     <button class="w-100 btn btn-lg btn-primary" *@
+                    @*             @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Kick))">Link *@
+                    @*         Kick *@
+                    @*         Account *@
+                    @*     </button> *@
+                    @* } *@
+                    @* else *@
+                    @* { *@
+                    @*     <div>Kick Is Linked</div> *@
+                    @* } *@
+                    @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.Twitch))
+                    {
+                        <button class="w-100 btn btn-lg btn-primary"
+                                @onclick="@(async () => await RegisterAccount(PlatformIdentifier.Twitch))">Link
+                            Twitch
+                            Account
+                        </button>
+                    }
+                    else
+                    {
+                        <div>Twitch Is Linked</div>
+                    }
+                    @if (!StreamerProfile.Channels.Contains(PlatformIdentifier.YouTube))
+                    {
+                        <button class="w-100 btn btn-lg btn-primary"
+                                @onclick="@(async () => await RegisterAccount(PlatformIdentifier.YouTube))">Link
+                            YouTube
+                            Account
+                        </button>
+                    }
+                    else
+                    {
+                        <div>YouTube Is Linked</div>
+                    }
+                    <div class="mt-5">
+                        <StreamerApiKey/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </Authorized>
+</AuthorizeView>
+
+@code {
+
+    [SupplyParameterFromForm] private InputModel Input { get; set; } = new();
+
+    [Inject, AllowNull] public IStreamerProfileService ProfileService { get; set; }
+    [Inject, AllowNull] public AuthenticationStateProvider StateProvider { get; set; }
+    [Inject, AllowNull] public NavigationManager Navigation { get; set; }
+
+    private StreamerProfile StreamerProfile { get; set; } = StreamerProfile.Default;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var userState = await StateProvider.GetAuthenticationStateAsync();
+
+        StreamerProfile = await ProfileService.FetchProfile(userState.GetUserId(), CancellationToken.None);
+
+        Input.Name = StreamerProfile.Name;
+        Input.Blurb = StreamerProfile.Blurb;
+        Input.Tags = new(StreamerProfile.Tags);
+    }
+
+    private async Task RegisterAccount(PlatformIdentifier identifier)
+    {
+        var userState = await StateProvider.GetAuthenticationStateAsync();
+
+        string link =
+            identifier == PlatformIdentifier.Twitch ? await ProfileService.FetchTwitchRegistrationLink(userState.GetUserId(), CancellationToken.None) :
+            identifier == PlatformIdentifier.YouTube ? await ProfileService.FetchYouTubeRegistrationLink(userState.GetUserId(), CancellationToken.None) :
+            await ProfileService.FetchKickRegistrationLink(userState.GetUserId(), CancellationToken.None);
+
+        Navigation.NavigateTo(link);
+    }
+
+    private async Task UpdateProfile()
+    {
+        var userState = await StateProvider.GetAuthenticationStateAsync();
+
+        await ProfileService.UpdateProfile(
+        new StreamerUpdateModel(
+        userState.GetUserId(),
+        Input.Name,
+        Input.Blurb)
+        );
+
+        await ProfileService.UpdateTags(
+        userState.GetUserId(),
+        Input.Tags);
+    }
+
+    private sealed class InputModel
+    {
+        [Required] public string Name { get; set; } = "";
+        public string Blurb { get; set; } = null!;
+        public List<string> Tags { get; set; } = [];
+    }
+
+}

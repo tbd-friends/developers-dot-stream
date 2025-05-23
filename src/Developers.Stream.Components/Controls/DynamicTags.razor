@@ -1,0 +1,19 @@
+﻿<div>
+    @foreach (var item in Tags)
+    {
+        <Tag @key="item" Closable OnClose="() => OnClose(item)">@item</Tag>
+    }
+    @if (InputIsVisible)
+    {
+        <Input @bind-Value="Input"
+               MaxLength="50"
+               OnBlur="HandleInputConfirm" OnPressEnter="HandleInputConfirm" AutoFocus/>
+    }
+    else
+    {
+        <Tag Class="site-tag-plus" OnClick="@(() => InputIsVisible = !InputIsVisible)">
+            <Icon Type="plus"/>
+            New Tag
+        </Tag>
+    }
+</div>

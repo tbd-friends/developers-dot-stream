@@ -1,0 +1,38 @@
+﻿@using System.Diagnostics.CodeAnalysis
+@using Developers.Stream.Infrastructure.Auth
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity
+@inherits LayoutComponentBase
+
+<div class="page">
+    <main>
+        <div class="top-row px-4">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h3><a href="/" class="nav-link">developers//stream</a></h3>
+                </div>
+                <div class="col">
+                    <AuthorizeView>
+                        <NotAuthorized>
+                            <NavLink class="nav-link" href="Account/Login">Login</NavLink>
+                            <NavLink class="nav-link" href="Account/Register">Register</NavLink>
+                        </NotAuthorized>
+                        <Authorized>
+                            <NavLink class="nav-link" href="Account/Profile">Profile</NavLink>
+                        </Authorized>
+                    </AuthorizeView>
+                </div>
+            </div>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>

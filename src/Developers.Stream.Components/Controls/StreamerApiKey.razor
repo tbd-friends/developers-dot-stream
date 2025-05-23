@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<di class="form-floating mb-3">
+    <InputText @bind-Value="ApiKey" id="ApiKey" class="form-control" readonly="true"
+               aria-required="true" placeholder="Api Key Not Set"/>
+    <label for="ApiKey" class="form-label">Api Key</label>
+</di>
+<button type="button" class="btn btn-sm btn-secondary" @onclick="@(async () => await GenerateApiKey())">
+    Generate
+</button>
