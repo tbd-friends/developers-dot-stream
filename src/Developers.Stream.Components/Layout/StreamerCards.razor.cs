@@ -10,6 +10,13 @@ public partial class StreamerCards(IStreamerQuery query) : ComponentBase
 
     protected override async Task OnInitializedAsync()
     {
-        Streamers = await query.GetStreamers(CancellationToken.None);
+        Streamers = await query.GetStreamers(searchTerm: string.Empty, CancellationToken.None);
+    }
+
+    public async Task OnFilterChanged(string term, CancellationToken cancellationToken)
+    {
+        Streamers = await query.GetStreamers(term, cancellationToken);
+
+        StateHasChanged();
     }
 }

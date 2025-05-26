@@ -8,13 +8,15 @@ namespace Developers.Stream.Application.Queries;
 
 public class GetStreamers
 {
-    public record Query : IQuery<IEnumerable<StreamerDto>>;
+    public record Query(string SearchTerm) : IQuery<IEnumerable<StreamerDto>>;
 
     public class Handler(IRepository<Streamer> repository) : IQueryHandler<Query, IEnumerable<StreamerDto>>
     {
         public async ValueTask<IEnumerable<StreamerDto>> Handle(Query query, CancellationToken cancellationToken)
         {
-            var streamers = await repository.ListAsync(new ActiveStreamersWithDetailsSpec(), cancellationToken);
+            var streamers = await repository.ListAsync(
+            new ActiveStreamersWithDetailsSpec(query.SearchTerm),
+            cancellationToken);
 
             return streamers;
         }

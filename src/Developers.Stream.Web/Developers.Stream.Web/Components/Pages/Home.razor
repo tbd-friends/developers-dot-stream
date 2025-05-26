@@ -1,9 +1,40 @@
-﻿@page "/"
-@using Developers.Stream.Components
+﻿@rendermode InteractiveServer
+
+@page "/"
 @using Developers.Stream.Components.Layout
 
 <PageTitle>Home</PageTitle>
 
-<input class="search-bar form-control" placeholder="Search"/>
+<InputText @bind-Value="_searchInput" class="form-control mb-3" placeholder="Search streamers..."
+           @bind-Value:after="OnInputChanged" />
 
-<StreamerCards />
+<StreamerCards @ref="_streamerCards" />
+
+@code
+{
+    private StreamerCards _streamerCards = null!;
+    private string _searchInput;
+
+    private CancellationTokenSource _cts = new CancellationTokenSource();
+
+    private async Task OnInputChanged()
+    {
+        await _cts.CancelAsync();
+        _cts = new CancellationTokenSource();
+        var cancellationToken = _cts.Token;
+
+        try
+        {
+            await Task.Delay(500, cancellationToken);
+
+            if (!cancellationToken.IsCancellationRequested)
+            {
+                await _streamerCards.OnFilterChanged(_searchInput, cancellationToken);
+            }
+        }
+        catch (TaskCanceledException)
+        { }
+    }
+
+}
+

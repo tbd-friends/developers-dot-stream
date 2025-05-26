@@ -55,4 +55,8 @@ public class StreamerApiClient(HttpClient client) :
     {
         throw new NotImplementedException();
     }
+    public Task<IEnumerable<StreamerDto>> GetStreamers(string searchTerm, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
 }

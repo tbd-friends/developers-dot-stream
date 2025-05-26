@@ -19,11 +19,13 @@ builder.Services.Configure<KickConfiguration>(builder.Configuration.GetSection("
 builder.Services.Configure<TwitchConfiguration>(builder.Configuration.GetSection("twitch"));
 builder.Services.Configure<YouTubeConfiguration>(builder.Configuration.GetSection("youtube"));
 
-builder.Services.AddHttpClient<IKickClient, KickClient>(client => {
+builder.Services.AddHttpClient<IKickClient, KickClient>(client =>
+{
     client.BaseAddress = new Uri(builder.Configuration["kick:authUrl"]!);
 });
 
-builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client => {
+builder.Services.AddHttpClient<ITwitchClient, TwitchClient>(client =>
+{
     client.BaseAddress = new Uri(builder.Configuration["twitch:authUrl"]!);
 });
 
@@ -52,11 +54,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/streamers", async (ISender sender) => await sender.Send(new GetStreamers.Query()));
+app.MapGet("/streamers", async (ISender sender) => await sender.Send(new GetStreamers.Query(string.Empty)));
 app.MapGet("/link-account", async (ISender sender,
     IOptions<ServicesConfiguration> configuration,
     string code,
-    string state) => {
+    string state) =>
+{
     await sender.Send(new LinkAccount.Command(code, state));
 
     return Results.Redirect(configuration.Value.ProfileRedirect);

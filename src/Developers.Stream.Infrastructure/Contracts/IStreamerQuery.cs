@@ -4,5 +4,5 @@ namespace Developers.Stream.Infrastructure.Contracts;
 
 public interface IStreamerQuery
 {
-    Task<IEnumerable<StreamerDto>> GetStreamers(CancellationToken cancellationToken);
+    Task<IEnumerable<StreamerDto>> GetStreamers(string searchTerm, CancellationToken cancellationToken);
 }
