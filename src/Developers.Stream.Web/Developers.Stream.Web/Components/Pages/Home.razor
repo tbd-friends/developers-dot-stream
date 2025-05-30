@@ -5,19 +5,26 @@
 
 <PageTitle>Home</PageTitle>
 
-<InputText @bind-Value="_searchInput" class="form-control mb-3" placeholder="Search streamers..."
-           @bind-Value:after="OnInputChanged" />
+<input type="text" class="form-control mb-3" placeholder="Search streamers by name or keyword..."
+       @oninput="OnInputChanged"/>
 
-<StreamerCards @ref="_streamerCards" />
+<StreamerCards @ref="_streamerCards"/>
 
 @code
 {
     private StreamerCards _streamerCards = null!;
-    private string _searchInput;
-
+    private string _searchInput = string.Empty;
+    
     private CancellationTokenSource _cts = new CancellationTokenSource();
 
-    private async Task OnInputChanged()
+    private Task OnInputChanged(ChangeEventArgs args)
+    {
+        _searchInput = args.Value?.ToString() ?? string.Empty;
+
+        return SearchInputUpdated();
+    }
+
+    private async Task SearchInputUpdated()
     {
         await _cts.CancelAsync();
         _cts = new CancellationTokenSource();
@@ -32,8 +39,7 @@
                 await _streamerCards.OnFilterChanged(_searchInput, cancellationToken);
             }
         }
-        catch (TaskCanceledException)
-        { }
+        catch (TaskCanceledException) {}
     }
 
 }
