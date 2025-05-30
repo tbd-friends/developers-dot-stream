@@ -1,9 +1,46 @@
-﻿@page "/"
-@using Developers.Stream.Components
+﻿@rendermode InteractiveServer
+
+@page "/"
 @using Developers.Stream.Components.Layout
 
 <PageTitle>Home</PageTitle>
 
-<input class="search-bar form-control" placeholder="Search"/>
+<input type="text" class="form-control mb-3" placeholder="Search streamers by name or keyword..."
+       @oninput="OnInputChanged"/>
 
-<StreamerCards />
+<StreamerCards @ref="_streamerCards"/>
+
+@code
+{
+    private StreamerCards _streamerCards = null!;
+    private string _searchInput = string.Empty;
+    
+    private CancellationTokenSource _cts = new CancellationTokenSource();
+
+    private Task OnInputChanged(ChangeEventArgs args)
+    {
+        _searchInput = args.Value?.ToString() ?? string.Empty;
+
+        return SearchInputUpdated();
+    }
+
+    private async Task SearchInputUpdated()
+    {
+        await _cts.CancelAsync();
+        _cts = new CancellationTokenSource();
+        var cancellationToken = _cts.Token;
+
+        try
+        {
+            await Task.Delay(500, cancellationToken);
+
+            if (!cancellationToken.IsCancellationRequested)
+            {
+                await _streamerCards.OnFilterChanged(_searchInput, cancellationToken);
+            }
+        }
+        catch (TaskCanceledException) {}
+    }
+
+}
+
