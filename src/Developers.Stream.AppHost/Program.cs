@@ -1,5 +1,3 @@
-using System.Net.Sockets;
-
 var builder = DistributedApplication.CreateBuilder(args);
 
 var passwordParameter = builder.AddParameter("postgres-password", "safePwsAreBetter");
