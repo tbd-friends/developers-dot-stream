@@ -9,18 +9,26 @@ builder.Services.AddHostedService<InitializeDbContextWorker>();
 
 builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
 {
-#if DEBUG
     options.UseNpgsql(
-            builder.Configuration.GetConnectionString("developers-stream"),
-            x => x.MigrationsAssembly("Developers.Stream.Migrations"))
+        builder.Configuration.GetConnectionString("developers-stream"),
+        x => x.MigrationsAssembly("Developers.Stream.Migrations"))
         .UseAsyncSeeding(async (context, _, cancellationToken) =>
         {
-            if (!context.Set<Platform>().Any())
+            if (!await context.Set<Platform>().AnyAsync())
             {
                 await context.Set<Platform>().AddRangeAsync(
-                    new Platform { Name = "Twitch" },
-                    new Platform { Name = "YouTube" },
-                    new Platform { Name = "Kick" }
+                new Platform
+                {
+                    Name = "Twitch"
+                },
+                new Platform
+                {
+                    Name = "YouTube"
+                },
+                new Platform
+                {
+                    Name = "Kick"
+                }
                 );
 
                 await context.SaveChangesAsync(cancellationToken);
@@ -28,18 +36,13 @@ builder.Services.AddPooledDbContextFactory<ApplicationDbContext>(options =>
 
             await context.SaveChangesAsync(cancellationToken);
         });
-#else
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("developers-stream"),
-        x => x.MigrationsAssembly("Developers.Stream.Migrations"));
-#endif
 });
 
 builder.Services.AddPooledDbContextFactory<AuthDbContext>(options =>
 {
     options.UseNpgsql(
-        builder.Configuration.GetConnectionString("developers-stream-auth"),
-        x => x.MigrationsAssembly("Developers.Stream.Migrations"));
+    builder.Configuration.GetConnectionString("developers-stream-auth"),
+    x => x.MigrationsAssembly("Developers.Stream.Migrations"));
 });
 
 var host = builder.Build();
